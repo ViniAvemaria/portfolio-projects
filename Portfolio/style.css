@@ -176,7 +176,7 @@ span {
     border: 2px solid var(--border-color);
 }
 
-#skills-display div {
+.skill-card {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -186,16 +186,35 @@ span {
     transition: background-color 0.3s ease;
 }
 
-#skills-display img {
+.skill-card img {
     transition: transform 0.2s ease;
 }
 
-#skills-display div:hover {
+.skill-card:hover {
     background-color: #273549;
 }
 
-#skills-display div:hover img {
+.skill-card:hover img {
     transform: scale(1.1);
+}
+
+#projects-display {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2.5em;
+}
+
+.project-card {
+    height: 250px;
+    width: 250px;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.project-card:hover {
+    background-color: #273549;
 }
 
 #contact {

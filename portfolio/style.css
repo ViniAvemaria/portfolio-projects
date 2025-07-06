@@ -316,6 +316,70 @@ h3 {
 
 /*
 ////////////////////////////////////
+////////////// CONTACT /////////////
+////////////////////////////////////
+*/
+
+#contact .card {
+    align-items: center;
+    max-width: 250px;
+}
+
+#contact form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    width: 100%;
+}
+
+#contact label {
+    color: var(--primary-text-color);
+    display: block;
+    font-size: 1.1em;
+    margin-bottom: 8px;
+}
+
+#contact label::after {
+    content: " *";
+    color: red;
+}
+
+#contact input,
+#contact textarea {
+    width: 100%;
+    background-color: #2f2f2f;
+    outline: none;
+    border: 1px solid var(--border-color);
+    color: var(--primary-text-color);
+}
+
+#contact input {
+    height: 1.5rem;
+}
+
+#contact textarea {
+    resize: none;
+    height: 15vh;
+}
+
+#send-btn {
+    align-self: center;
+    height: 1.8rem;
+    width: 4rem;
+    color: var(--primary-bg-color);
+    background-color: var(--primary-color);
+    cursor: pointer;
+    border: none;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+}
+
+#send-btn:hover {
+    background-color: var(--hover-color);
+}
+
+/*
+////////////////////////////////////
 ////////////// FOOTER //////////////
 ////////////////////////////////////
 */
@@ -352,6 +416,8 @@ footer p {
         top: 5rem;
         margin-right: 6vw;
         background-color: var(--primary-bg-color);
+        border-left: 1px solid var(--border-color);
+        border-right: 1px solid var(--border-color);
         pointer-events: none;
         transform-origin: top;
         transform: scaleY(0);
@@ -374,8 +440,8 @@ footer p {
         gap: 0;
     }
 
-    .navbar li:not(:first-child) {
-        border-top: 1px solid var(--border-color);
+    .navbar li {
+        border-bottom: 1px solid var(--border-color);
     }
 
     .nav-links {

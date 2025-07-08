@@ -148,7 +148,7 @@
             <div class="container">
                 <div class="card">
                     <h2>Deixe uma mensagem</h2>
-                    <form class="contact-form">
+                    <form action="https://formspree.io/f/mblyvawd" method="POST" class="contact-form" id="contact-form">
                         <div>
                             <label for="name">Nome</label>
                             <input type="text" name="name" id="name">
@@ -161,10 +161,14 @@
 
                         <div>
                             <label for="message">Mensagem</label>
-                            <textarea name="message" name="message" id="message"></textarea>
+                            <textarea name="message" id="message"></textarea>
                         </div>
 
-                        <button id="send-btn">Enviar</button>
+                        <input type="text" name="_gotcha" style="display:none">
+
+                        <button type="submit" id="send-btn">Enviar</button>
+
+                        <p id="form-result"></p>
                     </form>
                 </div>
             </div>
@@ -173,7 +177,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Vinicius de Moura Avemaria</p>
+            <p>&copy; <span id="year"></span> Vinicius de Moura Avemaria</p>
         </div>
     </footer>
 

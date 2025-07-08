@@ -407,11 +407,11 @@ footer p {
         position: fixed;
         visibility: hidden;
         opacity: 0;
+        width: 90%;
         top: 5rem;
         right: 5vw;
-        background-color: var(--primary-bg-color);
-        border-left: 1px solid var(--border-color);
-        border-right: 1px solid var(--border-color);
+        background-color: #121212cc;
+        backdrop-filter: blur(12px);
         pointer-events: none;
         transform-origin: top;
         transform: scaleY(0);
@@ -435,7 +435,7 @@ footer p {
     }
 
     .navbar li {
-        border-bottom: 1px solid var(--border-color);
+        border-bottom: 1px solid #2a2a2a;
     }
 
     .nav-links {

@@ -391,6 +391,22 @@ footer p {
 @media (max-width: 1024px) {
     #home .container {
         flex-direction: column;
+        margin-top: 5rem;
+        gap: 5rem;
+    }
+
+    section {
+        margin-bottom: 5rem;
+    }
+
+    #home h2 {
+        margin-top: 0;
+    }
+
+    .greeting-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 }
 

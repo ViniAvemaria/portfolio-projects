@@ -3,15 +3,11 @@ function toggleMenu() {
     const hamburger = document.getElementById("hamburger");
 
     navbar.classList.toggle("active");
-    hamburger.classList.toggle("toggle");
+    hamburger.classList.toggle("active");
 
-    if (navbar.classList.contains("closing")) {
-        setTimeout(() => {
-            navbar.classList.remove("closing");
-        }, 300);
-    } else {
-        navbar.classList.add("closing");
-    }
+    setTimeout(() => {
+        navbar.classList.toggle("closing");
+    }, 300);
 }
 
 const navLinks = document.querySelectorAll(".nav-links");

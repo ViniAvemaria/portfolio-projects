@@ -45,13 +45,13 @@ p {
 header {
     position: fixed;
     width: 100%;
+    height: 5rem;
     background-color: var(--primary-bg-color);
 }
 
 header .container {
     justify-content: space-between;
     max-width: 1100px;
-    height: 5rem;
     padding: 0 6vw;
     border-bottom: 1px solid var(--border-color);
 }
@@ -69,11 +69,6 @@ h1 a {
 
 h1 a:hover {
     color: var(--hover-color);
-}
-
-.navbar {
-    display: flex;
-    align-items: center;
 }
 
 .navbar ul {
@@ -94,7 +89,7 @@ h1 a:hover {
 
 /*
 ////////////////////////////////////
-//////////// MENU BUTTON ///////////
+///////////// NAV BUTTON ///////////
 ////////////////////////////////////
 */
 
@@ -142,16 +137,16 @@ h1 a:hover {
     top: 20px;
 }
 
-.hamburger.toggle span:nth-child(1) {
+.hamburger.active span:nth-child(1) {
     transform: rotate(45deg);
     top: 10px;
 }
 
-.hamburger.toggle span:nth-child(2) {
+.hamburger.active span:nth-child(2) {
     opacity: 0;
 }
 
-.hamburger.toggle span:nth-child(3) {
+.hamburger.active span:nth-child(3) {
     transform: rotate(-45deg);
     top: 10px;
 }
@@ -412,9 +407,8 @@ footer p {
         position: fixed;
         visibility: hidden;
         opacity: 0;
-        right: 0;
         top: 5rem;
-        margin-right: 6vw;
+        right: 5vw;
         background-color: var(--primary-bg-color);
         border-left: 1px solid var(--border-color);
         border-right: 1px solid var(--border-color);
@@ -446,8 +440,9 @@ footer p {
 
     .nav-links {
         display: block;
-        padding: 2rem;
+        padding: 2.5rem 3rem 2.5rem 3rem;
         transition: background-color 0.3s ease;
+        text-align: center;
     }
 
     .nav-links:hover {

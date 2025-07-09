@@ -144,7 +144,7 @@ label {
 }
 
 .hidden-menu.active {
-    opacity: 1;
+    opacity: 0;
     max-height: 1500px;
     margin-bottom: 1.5rem;
     pointer-events: initial;

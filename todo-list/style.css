@@ -1,0 +1,221 @@
+:root {
+    --primary-bg-color: #1e1e2e;
+    --secundary-bg-color: #282a36;
+    --border-color: #45475a;
+    --text-color: #bac2de;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--primary-bg-color);
+    color: var(--text-color);
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    max-width: 350px;
+    padding: 2rem;
+    background-color: var(--secundary-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.input-container {
+    display: flex;
+    gap: 8px;
+    max-width: 320px;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+label {
+    flex-shrink: 0;
+    min-width: 75px;
+    font-size: 1.1rem;
+}
+
+.input-box {
+    font-size: 1.1rem;
+    height: 1.5rem;
+    flex: 1;
+    min-width: 0;
+    outline: none;
+    border: 1px solid var(--primary-bg-color);
+    background-color: var(--border-color);
+    color: var(--text-color);
+}
+
+/*
+/////////////////////////////////
+/////////// BUTTONS /////////////
+/////////////////////////////////
+*/
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    max-width: 320px;
+}
+
+.button-container button {
+    border: none;
+    height: 2.5rem;
+    width: 100%;
+    cursor: pointer;
+    color: var(--primary-bg-color);
+    border-radius: 8px;
+    font-size: 1.1rem;
+}
+
+#add-btn {
+    background-color: hsl(120, 100%, 35%);
+    transition: background-color 0.3s ease;
+}
+
+#add-btn:hover {
+    background-color: hsl(120, 100%, 45%);
+}
+
+#clear-btn {
+    background-color: hsl(0, 100%, 40%);
+    transition: background-color 0.3s ease;
+}
+
+#clear-btn:hover {
+    background-color: hsl(0, 100%, 60%);
+}
+
+/*
+/////////////////////////////////
+///////// EXTRA BUTTONS /////////
+/////////////////////////////////
+*/
+
+#arrow-btn {
+    display: none;
+    border: none;
+    background: none;
+    padding: 5px;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+#arrow-btn svg {
+    transition: transform 0.4s ease;
+}
+
+#arrow-btn.active svg {
+    transform: rotate(180deg);
+    transform-origin: center;
+}
+
+.hidden-menu {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease, opacity 0.4s ease, margin-bottom 0.4s ease;
+}
+
+.hidden-menu.active {
+    opacity: 1;
+    max-height: 1500px;
+    margin-bottom: 1.5rem;
+    pointer-events: initial;
+}
+
+.hidden-menu .button-container {
+}
+
+.hidden-menu button {
+    height: 2rem;
+    font-size: 1rem;
+}
+
+.hidden-menu select {
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    gap: 12px;
+}
+
+.search-container button {
+    font-size: 1rem;
+    border-radius: 8px;
+}
+
+/*
+/////////////////////////////////
+////////// TASK LIST ////////////
+/////////////////////////////////
+*/
+
+.list-container {
+    width: 100%;
+}
+
+#list-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    list-style: none;
+}
+
+#list-items li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 320px;
+    width: 100%;
+    border-top: 1px solid var(--border-color);
+    padding: 1rem 0;
+    font-size: 1.1rem;
+}
+
+#list-items p {
+    max-width: 300px;
+    width: 65%;
+    margin: 0 auto;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+@media (max-width: 600px) {
+    html {
+        font-size: 15px;
+    }
+}

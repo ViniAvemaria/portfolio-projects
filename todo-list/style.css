@@ -189,7 +189,7 @@ button:hover {
 /////////////////////////////////
 */
 
-#list-items li {
+#task-list li {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -199,7 +199,7 @@ button:hover {
     font-size: 1.1rem;
 }
 
-#list-items p {
+#task-list p {
     flex: 1;
     max-width: 300px;
     text-decoration: line;
@@ -210,11 +210,11 @@ button:hover {
     transition: text-decoration 0.3s ease;
 }
 
-#list-items p.done {
+#task-list p.done {
     text-decoration: line-through;
 }
 
-#list-items button {
+#task-list button {
     font-size: 1rem;
     padding: 4px;
 }

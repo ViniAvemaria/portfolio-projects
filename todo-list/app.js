@@ -1,4 +1,27 @@
+const storedList = localStorage.getItem("localList");
+const localList = storedList ? JSON.parse(storedList) : [];
 const arrowButton = document.getElementById("arrow-btn");
+const taskList = document.getElementById("task-list");
+const newTaskInput = document.getElementById("new-task");
+let ID = 0;
+
+newTaskInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        addTask();
+    }
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+    if (localList.length) {
+        localList.forEach((task) => {
+            [id, taskValue] = task;
+            const item = createTaskItem(taskValue, id);
+            taskList.appendChild(item);
+        });
+
+        arrowButton.style.display = "flex";
+    }
+});
 
 function toggleMenu() {
     const hiddenMenu = document.getElementById("hidden-menu");
@@ -7,6 +30,7 @@ function toggleMenu() {
     hiddenMenu.classList.toggle("active");
 }
 
+// collapses the hidden menu when using delete or clear list and there're no items left in the list
 function hideMenu() {
     if (arrowButton.classList.contains("active")) {
         toggleMenu();
@@ -21,14 +45,14 @@ function hideMenu() {
 function deleteTask() {
     function findTask(id) {
         let l = 0,
-            r = taskList.length - 1;
+            r = localList.length - 1;
 
         while (l <= r) {
             let m = Math.floor((l + r) / 2);
 
-            if (taskList[m][0] < id) {
+            if (localList[m][0] < id) {
                 l = m + 1;
-            } else if (taskList[m][0] > id) {
+            } else if (localList[m][0] > id) {
                 r = m - 1;
             } else {
                 return m;
@@ -37,52 +61,26 @@ function deleteTask() {
         return -1;
     }
 
-    const selectedTasks = document.querySelectorAll("#list-items li.selected");
-    let listItems = selectedTasks.length;
+    const selectedTasks = document.querySelectorAll("#task-list li.selected");
+    let taskList = selectedTasks.length;
 
-    if (listItems) {
+    if (taskList) {
         selectedTasks.forEach((task) => {
             const id = task.querySelector("span");
             const index = findTask(id);
 
             task.remove();
-            taskList.splice(0, 1);
-            listItems = document.getElementById("list-items").children.length;
+            localList.splice(0, 1);
+            taskList = document.getElementById("task-list").children.length;
         });
 
-        if (!listItems) {
+        if (!taskList) {
             hideMenu();
         }
 
-        localStorage.setItem("taskList", JSON.stringify(taskList));
+        localStorage.setItem("localList", JSON.stringify(localList));
     }
 }
-
-// Retrieves list data from localStorage
-const storedList = localStorage.getItem("taskList");
-const taskList = storedList ? JSON.parse(storedList) : [];
-
-// Displays list items when page is loaded
-window.addEventListener("DOMContentLoaded", () => {
-    if (taskList.length) {
-        const listItems = document.getElementById("list-items");
-        taskList.forEach((task) => {
-            [id, taskValue] = task;
-            const item = createTaskItem(taskValue, id);
-            listItems.appendChild(item);
-        });
-
-        arrowButton.style.display = "flex";
-    }
-});
-
-// Allows pressing enter key to add task
-const input = document.getElementById("task");
-input.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-        addTask();
-    }
-});
 
 function createTaskItem(taskValue, id) {
     const item = document.createElement("li");
@@ -118,33 +116,28 @@ function createTaskItem(taskValue, id) {
     return item;
 }
 
-let ID = 0;
-
 function addTask() {
     const id = ID++;
-    const newTask = document.getElementById("task");
-    const listItems = document.getElementById("list-items");
+    const newTask = document.getElementById("new-task");
     const taskValue = newTask.value.trim();
 
     if (taskValue === "") return;
 
     const item = createTaskItem(taskValue, id);
-    listItems.appendChild(item);
+    taskList.appendChild(item);
 
-    taskList.push([id, taskValue]);
-    localStorage.setItem("taskList", JSON.stringify(taskList));
+    localList.push([id, taskValue]);
+    localStorage.setItem("localList", JSON.stringify(localList));
     newTask.value = "";
 
     arrowButton.style.display = "flex";
 }
 
 function clearAllTasks() {
-    if (taskList.length) {
-        const listItems = document.getElementById("list-items");
-        listItems.innerHTML = "";
-        localStorage.removeItem("taskList");
-        taskList.length = 0;
-
+    if (localList.length) {
+        taskList.innerHTML = "";
+        localStorage.removeItem("localList");
+        localList.length = 0;
         hideMenu();
     }
 }

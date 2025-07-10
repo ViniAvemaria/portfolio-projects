@@ -1,10 +1,61 @@
 const arrowButton = document.getElementById("arrow-btn");
 
 function toggleMenu() {
-    hiddenMenu = document.getElementById("hidden-menu");
+    const hiddenMenu = document.getElementById("hidden-menu");
 
     arrowButton.classList.toggle("active");
     hiddenMenu.classList.toggle("active");
+}
+
+function hideMenu() {
+    if (arrowButton.classList.contains("active")) {
+        toggleMenu();
+        setTimeout(() => {
+            arrowButton.style.display = "none";
+        }, 300);
+    } else {
+        arrowButton.style.display = "none";
+    }
+}
+
+function deleteTask() {
+    function findTask(id) {
+        let l = 0,
+            r = taskList.length - 1;
+
+        while (l <= r) {
+            let m = Math.floor((l + r) / 2);
+
+            if (taskList[m][0] < id) {
+                l = m + 1;
+            } else if (taskList[m][0] > id) {
+                r = m - 1;
+            } else {
+                return m;
+            }
+        }
+        return -1;
+    }
+
+    const selectedTasks = document.querySelectorAll("#list-items li.selected");
+    let listItems = selectedTasks.length;
+
+    if (listItems) {
+        selectedTasks.forEach((task) => {
+            const id = task.querySelector("span");
+            const index = findTask(id);
+
+            task.remove();
+            taskList.splice(0, 1);
+            listItems = document.getElementById("list-items").children.length;
+        });
+
+        if (!listItems) {
+            hideMenu();
+        }
+
+        localStorage.setItem("taskList", JSON.stringify(taskList));
+    }
 }
 
 // Retrieves list data from localStorage
@@ -16,7 +67,8 @@ window.addEventListener("DOMContentLoaded", () => {
     if (taskList.length) {
         const listItems = document.getElementById("list-items");
         taskList.forEach((task) => {
-            const item = createTaskItem(task);
+            [id, taskValue] = task;
+            const item = createTaskItem(taskValue, id);
             listItems.appendChild(item);
         });
 
@@ -32,8 +84,12 @@ input.addEventListener("keydown", function (event) {
     }
 });
 
-function createTaskItem(taskValue) {
+function createTaskItem(taskValue, id) {
     const item = document.createElement("li");
+
+    const span = document.createElement("span");
+    span.textContent = id;
+    span.style.display = "none";
 
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
@@ -45,10 +101,16 @@ function createTaskItem(taskValue) {
     button.textContent = "Done";
     button.classList.add("done-btn");
 
+    checkbox.addEventListener("change", () => {
+        const li = checkbox.closest("li");
+        li.classList.toggle("selected");
+    });
+
     button.addEventListener("click", () => {
         p.classList.toggle("done");
     });
 
+    item.appendChild(span);
     item.appendChild(checkbox);
     item.appendChild(p);
     item.appendChild(button);
@@ -56,17 +118,20 @@ function createTaskItem(taskValue) {
     return item;
 }
 
+let ID = 0;
+
 function addTask() {
+    const id = ID++;
     const newTask = document.getElementById("task");
     const listItems = document.getElementById("list-items");
     const taskValue = newTask.value.trim();
 
     if (taskValue === "") return;
 
-    const item = createTaskItem(taskValue);
+    const item = createTaskItem(taskValue, id);
     listItems.appendChild(item);
 
-    taskList.push(taskValue);
+    taskList.push([id, taskValue]);
     localStorage.setItem("taskList", JSON.stringify(taskList));
     newTask.value = "";
 
@@ -80,13 +145,6 @@ function clearAllTasks() {
         localStorage.removeItem("taskList");
         taskList.length = 0;
 
-        if (arrowButton.classList.contains("active")) {
-            toggleMenu();
-            setTimeout(() => {
-                arrowButton.style.display = "none";
-            }, 300);
-        } else {
-            arrowButton.style.display = "none";
-        }
+        hideMenu();
     }
 }

@@ -3,13 +3,15 @@ const localList = storedList ? JSON.parse(storedList) : [];
 const arrowButton = document.getElementById("arrow-btn");
 const taskList = document.getElementById("task-list");
 const newTaskInput = document.getElementById("new-task");
-let ID = 0;
+let ID = 0; // unique id for each list item
 
+// enables delete and edit button depending on number of selected items in task list
 taskList.addEventListener("change", () => {
     const deleteButton = document.getElementById("delete-btn");
     const editButton = document.getElementById("edit-btn");
 
     const checkboxes = taskList.querySelectorAll("input[type='checkbox']");
+    // needs to convert NodeList to array to use filter
     const checkedBoxes = Array.from(checkboxes).filter((cb) => cb.checked);
 
     const anyChecked = checkedBoxes.length > 0;
@@ -20,12 +22,14 @@ taskList.addEventListener("change", () => {
     editButton.disabled = !onlyOneChecked;
 });
 
+// adds tasks by pressing enter key
 newTaskInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
         addTask();
     }
 });
 
+// displays list items when page is loaded
 window.addEventListener("DOMContentLoaded", () => {
     if (localList.length) {
         localList.forEach((task) => {
@@ -82,10 +86,9 @@ function deleteTask() {
     if (taskList) {
         selectedTasks.forEach((task) => {
             const id = task.querySelector("span");
-            const index = findTask(id);
-
+            const index = findTask(Number(id.textContent));
             task.remove();
-            localList.splice(0, 1);
+            localList.splice(index, 1);
             taskList = document.getElementById("task-list").children.length;
         });
 
@@ -139,7 +142,6 @@ function addTask() {
     const taskValue = newTask.value.trim();
 
     if (taskValue === "") return;
-
     const item = createTaskItem(taskValue, id);
     taskList.appendChild(item);
 

@@ -171,6 +171,8 @@ button:hover {
     font-size: 1rem;
     border-radius: 6px;
     color: var(--primary-bg-color);
+    cursor: pointer;
+    outline: none;
 }
 
 .hidden-menu input {
@@ -200,15 +202,21 @@ button:hover {
 #list-items p {
     flex: 1;
     max-width: 300px;
+    text-decoration: line;
     width: 50%;
     white-space: normal;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    transition: text-decoration 0.3s ease;
+}
+
+#list-items p.done {
+    text-decoration: line-through;
 }
 
 #list-items button {
-    padding: 3px;
     font-size: 1rem;
+    padding: 4px;
 }
 
 @media (max-width: 600px) {

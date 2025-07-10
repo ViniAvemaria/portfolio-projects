@@ -1,19 +1,11 @@
-/////////////////////////////////
-//////////// BUTTONS ////////////
-/////////////////////////////////
-
 const arrowButton = document.getElementById("arrow-btn");
 
-arrowButton.addEventListener("click", () => {
+function toggleMenu() {
     hiddenMenu = document.getElementById("hidden-menu");
 
     arrowButton.classList.toggle("active");
     hiddenMenu.classList.toggle("active");
-});
-
-/////////////////////////////////
-////////// TASK LIST ////////////
-/////////////////////////////////
+}
 
 // Retrieves list data from localStorage
 const storedList = localStorage.getItem("taskList");
@@ -51,6 +43,11 @@ function createTaskItem(taskValue) {
 
     const button = document.createElement("button");
     button.textContent = "Done";
+    button.classList.add("done-btn");
+
+    button.addEventListener("click", () => {
+        p.classList.toggle("done");
+    });
 
     item.appendChild(checkbox);
     item.appendChild(p);
@@ -83,6 +80,13 @@ function clearAllTasks() {
         localStorage.removeItem("taskList");
         taskList.length = 0;
 
-        arrowButton.style.display = "none";
+        if (arrowButton.classList.contains("active")) {
+            toggleMenu();
+            setTimeout(() => {
+                arrowButton.style.display = "none";
+            }, 300);
+        } else {
+            arrowButton.style.display = "none";
+        }
     }
 }

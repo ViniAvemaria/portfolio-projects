@@ -12,15 +12,16 @@
     <main>
         <div class="container">
             <h1>To-do List</h1>
+            <div class="visible-menu">
+                <div class="label-input-row">
+                    <label for="task">New task:</label>
+                    <input type="text" name="task" id="task">
+                </div>
 
-            <div class="input-container">
-                <label for="task">New task:</label>
-                <input type="text" name="task" id="task">
-            </div>
-
-            <div class="button-container">
-                <button id="add-btn" onclick="addTask()">Add task</button>
-                <button id="clear-btn" onclick="clearAllTasks()">Clear list</button>
+                <div class="btn-row">
+                    <button id="add-btn" onclick="addTask()">Add task</button>
+                    <button id="clear-btn" onclick="clearAllTasks()">Clear list</button>
+                </div>
             </div>
 
             <button id="arrow-btn">
@@ -29,26 +30,23 @@
                     <path d="M480-360 280-560h400L480-360Z" />
                 </svg></button>
 
-            <div id="hidden-menu" class="hidden-menu active">
-                <div class="button-container">
-                    <button>Delete</button>
-                    <button>Edit</button>
-                    <select name="sort-items" id="sort-items">
-                        <option value="default">Sort by</option>
-                        <option value="done">Done</option>
-                        <option value="pending">Pending</option>
-                        <option value="alpha">A-Z</option>
-                        <option value="reverse">Z-A</option>
-                    </select>
-                </div>
+            <div id="hidden-menu" class="hidden-menu">
+                <button id="delete-btn">Delete</button>
+                <button id="edit-btn">Edit</button>
 
-                <div class="search-container">
-                    <input type="text" name="search" id="search">
-                    <button>Search</button>
-                </div>
+                <select name="sort-items" id="sort-select">
+                    <option value="default">Sort by</option>
+                    <option value="done">Done</option>
+                    <option value="pending">Pending</option>
+                    <option value="alpha">A-Z</option>
+                    <option value="reverse">Z-A</option>
+                </select>
+
+                <input type="text" name="search" id="search-input">
+                <button id="search-btn">Search</button>
             </div>
 
-            <div class="list-container">
+            <div>
                 <ul id="list-items"></ul>
             </div>
         </div>

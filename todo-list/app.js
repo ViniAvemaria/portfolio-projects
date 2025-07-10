@@ -5,6 +5,21 @@ const taskList = document.getElementById("task-list");
 const newTaskInput = document.getElementById("new-task");
 let ID = 0;
 
+taskList.addEventListener("change", () => {
+    const deleteButton = document.getElementById("delete-btn");
+    const editButton = document.getElementById("edit-btn");
+
+    const checkboxes = taskList.querySelectorAll("input[type='checkbox']");
+    const checkedBoxes = Array.from(checkboxes).filter((cb) => cb.checked);
+
+    const anyChecked = checkedBoxes.length > 0;
+    const onlyOneChecked = checkedBoxes.length === 1;
+
+    // must be ! so it sets disable to false and enables the button
+    deleteButton.disabled = !anyChecked;
+    editButton.disabled = !onlyOneChecked;
+});
+
 newTaskInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
         addTask();
@@ -81,6 +96,8 @@ function deleteTask() {
         localStorage.setItem("localList", JSON.stringify(localList));
     }
 }
+
+function editTask() {}
 
 function createTaskItem(taskValue, id) {
     const item = document.createElement("li");

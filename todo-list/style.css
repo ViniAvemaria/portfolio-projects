@@ -59,6 +59,15 @@ button:hover {
     background-color: hsl(0, 0%, 75%);
 }
 
+button:disabled {
+    background-color: hsl(0, 0%, 45%);
+    cursor: default;
+}
+
+button:disabled:hover {
+    background-color: hsl(0, 0%, 45%);
+}
+
 /*
 /////////////////////////////////
 ///////// VISIBLE MENU //////////

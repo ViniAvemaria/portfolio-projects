@@ -4,11 +4,43 @@ const arrowButton = document.getElementById("arrow-btn");
 const searchButton = document.getElementById("search-btn");
 const taskList = document.getElementById("task-list");
 const newTaskInput = document.getElementById("new-task");
+const selectSort = document.getElementById("sort-select");
 let ID = 0; // unique id for each list item
 
 taskList.addEventListener("change", () => {
     // enables delete and edit button depending on number of selected items in task list
     updateButtonState();
+});
+
+selectSort.addEventListener("change", (event) => {
+    const tasks = taskList.querySelectorAll("li");
+    const doneList = [];
+    const pendingList = [];
+    let sortedList = localList;
+
+    tasks.forEach((task) => {
+        const id = task.querySelector("span").textContent;
+        const taskValue = task.querySelector("p");
+        if (taskValue.classList.contains("done")) {
+            doneList.push([id, taskValue.textContent, 1]);
+        } else {
+            pendingList.push([id, taskValue.textContent, 0]);
+        }
+    });
+
+    if (event.target.value === "done") {
+        sortedList = [...doneList, ...pendingList];
+    } else if (event.target.value === "pending") {
+        sortedList = [...pendingList, ...doneList];
+    }
+
+    taskList.innerHTML = "";
+
+    sortedList.forEach((task) => {
+        [id, taskValue, taskStatus] = task;
+        const item = createTaskItem(taskValue, id, taskStatus);
+        taskList.appendChild(item);
+    });
 });
 
 // adds tasks by pressing enter key
@@ -22,8 +54,8 @@ newTaskInput.addEventListener("keydown", (event) => {
 window.addEventListener("DOMContentLoaded", () => {
     if (localList.length) {
         localList.forEach((task) => {
-            [id, taskValue] = task;
-            const item = createTaskItem(taskValue, id);
+            [id, taskValue, taskStatus] = task;
+            const item = createTaskItem(taskValue, id, taskStatus);
             taskList.appendChild(item);
         });
 
@@ -185,7 +217,7 @@ function searchTask() {
     }
 }
 
-function createTaskItem(taskValue, id) {
+function createTaskItem(taskValue, id, taskStatus) {
     const item = document.createElement("li");
 
     // hidden span that works as a unique id for each task
@@ -198,6 +230,7 @@ function createTaskItem(taskValue, id) {
 
     const p = document.createElement("p");
     p.textContent = taskValue;
+    if (taskStatus) p.classList.add("done");
 
     // hidden input box that is used when editing a task
     const input = document.createElement("input");
@@ -220,7 +253,10 @@ function createTaskItem(taskValue, id) {
             editTask(span, p, input, button);
             item.classList.toggle("selected"); // removes selected class from task
         } else {
-            item.classList.toggle("done");
+            const index = findTaskIndex(id);
+            localList[index][2] = 1;
+            localStorage.setItem("localList", JSON.stringify(localList));
+            p.classList.toggle("done");
         }
     });
 
@@ -239,10 +275,11 @@ function addTask() {
     const taskValue = newTask.value.trim();
 
     if (taskValue === "") return;
-    const item = createTaskItem(taskValue, id);
+    const item = createTaskItem(taskValue, id, 0);
     taskList.appendChild(item);
 
-    localList.push([id, taskValue]);
+    // third value represents task completion status. default is 0 = pending
+    localList.push([id, taskValue, 0]);
     localStorage.setItem("localList", JSON.stringify(localList));
     newTask.value = "";
 

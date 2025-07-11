@@ -230,8 +230,9 @@ button:disabled:hover {
     width: 50%;
 }
 
-#task-list li.done p {
+#task-list p.done {
     text-decoration: line-through;
+    text-decoration-color: red;
 }
 
 #task-list input.edit-input {

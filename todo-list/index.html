@@ -36,11 +36,10 @@
                 <button disabled onclick="enableEditTask()" id="edit-btn">Edit</button>
 
                 <select name="sort-items" id="sort-select">
-                    <option value="default">Sort by</option>
+                    <option value="" disabled selected hidden>Sort by</option>
                     <option value="done">Done</option>
                     <option value="pending">Pending</option>
-                    <option value="alpha">A-Z</option>
-                    <option value="reverse">Z-A</option>
+                    <option value="none">None</option>
                 </select>
 
                 <input type="text" name="search" id="search-input">

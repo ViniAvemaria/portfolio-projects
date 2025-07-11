@@ -50,7 +50,7 @@ function hideMenu() {
 }
 
 // binary search to find task's index in local list
-function findTask(id) {
+function findTaskIndex(id) {
     let l = 0,
         r = localList.length - 1;
 
@@ -74,11 +74,17 @@ function deleteTask() {
 
     selectedTasks.forEach((task) => {
         const id = task.querySelector("span");
-        const index = findTask(Number(id.textContent));
+        const index = findTaskIndex(Number(id.textContent));
         task.remove();
         localList.splice(index, 1);
         taskList = document.getElementById("task-list").children.length;
     });
+
+    // clears search input after deleting the searched item
+    const searchButton = document.getElementById("search-btn");
+    if (searchButton.textContent === "Clear") {
+        clearSearchInput(searchButton);
+    }
 
     // if there're no more items in the list after deletion, hides the menu
     if (!taskList) {
@@ -115,7 +121,7 @@ function editTask(id, p, input, button) {
 
     if (newTask) {
         p.textContent = newTask;
-        const index = findTask(Number(id.textContent));
+        const index = findTaskIndex(Number(id.textContent));
         localList[index][1] = newTask;
         localStorage.setItem("localList", JSON.stringify(localList));
     } else {
@@ -128,6 +134,54 @@ function editTask(id, p, input, button) {
 
     toggleEditing(p, input, button);
     updateButtonState();
+}
+
+// also enables input box and show all task items
+function clearSearchInput(searchButton) {
+    const input = document.getElementById("search-input");
+    const tasks = document.querySelectorAll("li");
+
+    tasks.forEach((task) => {
+        if (task.classList.contains("hide")) {
+            task.classList.toggle("hide");
+        }
+    });
+    searchButton.textContent = "Search";
+    input.value = "";
+    input.readOnly = false;
+}
+
+function searchTask() {
+    function fuzzyMatch(input, target) {
+        input = input.toLowerCase();
+        target = target.toLowerCase();
+
+        let i = 0;
+        for (let char of target) {
+            if (char === input[i]) {
+                i++;
+                if (i === input.length) return true;
+            }
+        }
+        return false;
+    }
+
+    const input = document.getElementById("search-input");
+    const searchButton = document.getElementById("search-btn");
+    const tasks = document.querySelectorAll("li");
+
+    if (searchButton.textContent === "Search") {
+        tasks.forEach((task) => {
+            const taskValue = task.querySelector("p");
+            if (!fuzzyMatch(input.value, taskValue.textContent)) {
+                task.classList.toggle("hide");
+            }
+        });
+        searchButton.textContent = "Clear";
+        input.readOnly = true;
+    } else {
+        clearSearchInput(searchButton);
+    }
 }
 
 function createTaskItem(taskValue, id) {

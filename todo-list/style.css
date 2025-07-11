@@ -207,6 +207,10 @@ button:disabled:hover {
     padding: 1rem 0;
 }
 
+#task-list li.hide {
+    display: none;
+}
+
 #task-list p,
 #task-list input.edit-input {
     flex: 1;

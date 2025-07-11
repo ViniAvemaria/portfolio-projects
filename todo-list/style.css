@@ -224,7 +224,6 @@ button:disabled:hover {
 
 #task-list p {
     width: 50%;
-    padding-left: 4.5px;
 }
 
 #task-list li.done p {

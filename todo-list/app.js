@@ -105,21 +105,27 @@ function enableEditTask() {
     const input = selectedTask.querySelector("input.edit-input");
     const button = selectedTask.querySelector("button");
 
+    input.value = p.textContent;
     toggleEditing(p, input, button);
 }
 
 // edits tasks updating p tag with new input
 function editTask(id, p, input, button) {
+    const newTask = input.value;
+
+    if (newTask) {
+        p.textContent = newTask;
+        const index = findTask(Number(id.textContent));
+        localList[index][1] = newTask;
+        localStorage.setItem("localList", JSON.stringify(localList));
+    } else {
+        input.value = p.textContent;
+    }
+
     const selectedTask = document.querySelector("#task-list li.selected");
     const checkbox = selectedTask.querySelector("input[type = 'checkbox']");
-    const index = findTask(Number(id.textContent));
-    const newTask = input.value;
-    p.textContent = newTask;
-
-    localList[index][1] = newTask;
-    localStorage.setItem("localList", JSON.stringify(localList));
-
     checkbox.checked = false;
+
     toggleEditing(p, input, button);
     updateButtonState();
 }
@@ -136,12 +142,11 @@ function createTaskItem(taskValue, id) {
     checkbox.type = "checkbox";
 
     const p = document.createElement("p");
-    p.textContent = " " + taskValue;
+    p.textContent = taskValue;
 
     // hidden input box that is used when editing a task
     const input = document.createElement("input");
     input.type = "text";
-    input.value = p.textContent;
     input.classList.add("edit-input");
 
     const button = document.createElement("button");
@@ -149,8 +154,7 @@ function createTaskItem(taskValue, id) {
     button.classList.add("done-btn");
 
     checkbox.addEventListener("change", () => {
-        const li = checkbox.closest("li");
-        li.classList.toggle("selected");
+        item.classList.toggle("selected");
         if (input.classList.contains("editing")) {
             toggleEditing(p, input, button);
         }
@@ -159,6 +163,7 @@ function createTaskItem(taskValue, id) {
     button.addEventListener("click", () => {
         if (button.classList.contains("editing")) {
             editTask(span, p, input, button);
+            item.classList.toggle("selected"); // removes selected class from task
         } else {
             item.classList.toggle("done");
         }

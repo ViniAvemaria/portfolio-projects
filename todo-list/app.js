@@ -49,25 +49,26 @@ function hideMenu() {
     }
 }
 
-function deleteTask() {
-    const findTask = (id) => {
-        let l = 0,
-            r = localList.length - 1;
+// binary search to find task's index in local list
+function findTask(id) {
+    let l = 0,
+        r = localList.length - 1;
 
-        while (l <= r) {
-            let m = Math.floor((l + r) / 2);
+    while (l <= r) {
+        let m = Math.floor((l + r) / 2);
 
-            if (localList[m][0] < id) {
-                l = m + 1;
-            } else if (localList[m][0] > id) {
-                r = m - 1;
-            } else {
-                return m;
-            }
+        if (localList[m][0] < id) {
+            l = m + 1;
+        } else if (localList[m][0] > id) {
+            r = m - 1;
+        } else {
+            return m;
         }
-        return -1;
-    };
+    }
+    return -1;
+}
 
+function deleteTask() {
     const selectedTasks = document.querySelectorAll("#task-list li.selected");
     let taskList = undefined;
 
@@ -79,6 +80,7 @@ function deleteTask() {
         taskList = document.getElementById("task-list").children.length;
     });
 
+    // if there're no more items in the list after deletion, hides the menu
     if (!taskList) {
         hideMenu();
     }
@@ -87,6 +89,7 @@ function deleteTask() {
     localStorage.setItem("localList", JSON.stringify(localList));
 }
 
+// toggles editing mode
 function toggleEditing(p, input, button) {
     p.classList.toggle("editing");
     input.classList.toggle("editing");
@@ -95,6 +98,7 @@ function toggleEditing(p, input, button) {
     button.textContent = button.textContent === "Done" ? "Change" : "Done";
 }
 
+// onClick function for edit button
 function enableEditTask() {
     const selectedTask = document.querySelector("#task-list li.selected");
     const p = selectedTask.querySelector("p");
@@ -104,14 +108,26 @@ function enableEditTask() {
     toggleEditing(p, input, button);
 }
 
-function editTask(p, input) {
-    alert(input.value);
-    alert(p.textContent);
+// edits tasks updating p tag with new input
+function editTask(id, p, input, button) {
+    const selectedTask = document.querySelector("#task-list li.selected");
+    const checkbox = selectedTask.querySelector("input[type = 'checkbox']");
+    const index = findTask(Number(id.textContent));
+    const newTask = input.value;
+    p.textContent = newTask;
+
+    localList[index][1] = newTask;
+    localStorage.setItem("localList", JSON.stringify(localList));
+
+    checkbox.checked = false;
+    toggleEditing(p, input, button);
+    updateButtonState();
 }
 
 function createTaskItem(taskValue, id) {
     const item = document.createElement("li");
 
+    // hidden span that works as a unique id for each task
     const span = document.createElement("span");
     span.textContent = id;
     span.style.display = "none";
@@ -122,6 +138,7 @@ function createTaskItem(taskValue, id) {
     const p = document.createElement("p");
     p.textContent = " " + taskValue;
 
+    // hidden input box that is used when editing a task
     const input = document.createElement("input");
     input.type = "text";
     input.value = p.textContent;
@@ -140,9 +157,10 @@ function createTaskItem(taskValue, id) {
     });
 
     button.addEventListener("click", () => {
-        p.classList.toggle("done");
         if (button.classList.contains("editing")) {
-            editTask(p, input);
+            editTask(span, p, input, button);
+        } else {
+            item.classList.toggle("done");
         }
     });
 

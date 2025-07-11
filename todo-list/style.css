@@ -227,7 +227,7 @@ button:disabled:hover {
     padding-left: 4.5px;
 }
 
-#task-list p.done {
+#task-list li.done p {
     text-decoration: line-through;
 }
 

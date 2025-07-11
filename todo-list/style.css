@@ -160,7 +160,7 @@ button:disabled:hover {
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    transition: max-height 0.2s ease, opacity 0.4s ease, margin-bottom 0.4s ease;
+    transition: max-height 0.3s ease, opacity 0.3s ease, margin-bottom 0.4s ease;
 }
 
 .hidden-menu.active {
@@ -205,27 +205,47 @@ button:disabled:hover {
     width: 100%;
     border-top: 1px solid var(--border-color);
     padding: 1rem 0;
+}
+
+#task-list p,
+#task-list input.edit-input {
+    flex: 1;
+    font-family: inherit;
     font-size: 1.1rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    margin: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    background: transparent;
 }
 
 #task-list p {
-    flex: 1;
-    max-width: 300px;
-    text-decoration: line;
     width: 50%;
-    white-space: normal;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    transition: text-decoration 0.3s ease;
+    padding-left: 4.5px;
 }
 
 #task-list p.done {
     text-decoration: line-through;
 }
 
+#task-list input.edit-input {
+    display: none;
+}
+
 #task-list button {
     font-size: 1rem;
     padding: 4px;
+}
+
+#task-list p.editing {
+    display: none;
+}
+
+#task-list input.edit-input.editing {
+    display: initial;
 }
 
 @media (max-width: 600px) {

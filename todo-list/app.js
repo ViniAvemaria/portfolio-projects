@@ -1,6 +1,7 @@
 const storedList = localStorage.getItem("localList");
 const localList = storedList ? JSON.parse(storedList) : [];
 const arrowButton = document.getElementById("arrow-btn");
+const searchButton = document.getElementById("search-btn");
 const taskList = document.getElementById("task-list");
 const newTaskInput = document.getElementById("new-task");
 let ID = 0; // unique id for each list item
@@ -81,7 +82,6 @@ function deleteTask() {
     });
 
     // clears search input after deleting the searched item
-    const searchButton = document.getElementById("search-btn");
     if (searchButton.textContent === "Clear") {
         clearSearchInput(searchButton);
     }
@@ -137,7 +137,7 @@ function editTask(id, p, input, button) {
 }
 
 // also enables input box and show all task items
-function clearSearchInput(searchButton) {
+function clearSearchInput() {
     const input = document.getElementById("search-input");
     const tasks = document.querySelectorAll("li");
 
@@ -167,8 +167,9 @@ function searchTask() {
     }
 
     const input = document.getElementById("search-input");
-    const searchButton = document.getElementById("search-btn");
     const tasks = document.querySelectorAll("li");
+
+    if (input.value.trim() === "") return;
 
     if (searchButton.textContent === "Search") {
         tasks.forEach((task) => {
@@ -180,7 +181,7 @@ function searchTask() {
         searchButton.textContent = "Clear";
         input.readOnly = true;
     } else {
-        clearSearchInput(searchButton);
+        clearSearchInput();
     }
 }
 
@@ -245,6 +246,10 @@ function addTask() {
     localStorage.setItem("localList", JSON.stringify(localList));
     newTask.value = "";
 
+    if (searchButton.textContent === "Clear") {
+        clearSearchInput(searchButton);
+    }
+
     arrowButton.style.display = "flex";
 }
 
@@ -254,6 +259,9 @@ function clearAllTasks() {
         localStorage.removeItem("localList");
         localList.length = 0;
         hideMenu();
+        if (searchButton.textContent === "Clear") {
+            clearSearchInput(searchButton);
+        }
     }
 }
 

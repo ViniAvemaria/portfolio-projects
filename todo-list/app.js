@@ -1,12 +1,12 @@
 const storedList = localStorage.getItem("localList");
 const localList = storedList ? JSON.parse(storedList) : [];
 const arrowButton = document.getElementById("arrow-btn");
-const searchButton = document.getElementById("search-btn");
+const clearSearchButton = document.getElementById("search-btn");
 const searchBar = document.getElementById("search-bar");
 const taskList = document.getElementById("task-list");
 const newTaskInput = document.getElementById("new-task");
 const selectFilter = document.getElementById("filter-select");
-let ID = 0; // unique id for each list item
+let ID = localList.length ? localList[localList.length - 1][0] + 1 : 0; // unique id for each list item
 
 // displays list items when page is loaded
 window.addEventListener("DOMContentLoaded", () => {
@@ -113,8 +113,8 @@ function addTask() {
 
     arrowButton.style.display = "flex";
 
-    // disables search mode if adding a task before clearing search input
-    if (searchButton.textContent === "Clear") clearSearchInput(searchButton);
+    // clears search input if adding a task before clearing search input
+    if (searchBar.value !== "") clearSearchBar();
 }
 
 function createTask(taskValue, id, taskStatus) {
@@ -178,12 +178,10 @@ function createTask(taskValue, id, taskStatus) {
 function clearAllTasks() {
     if (!localList.length) return;
 
+    taskList.innerHTML = "";
     localStorage.removeItem("localList");
     localList.length = 0;
     hideMenu();
-
-    // disables search mode if deleting all tasks before clearing search input
-    if (searchButton.textContent === "Clear") clearSearchInput(searchButton);
 }
 
 function deleteTask() {
@@ -198,11 +196,6 @@ function deleteTask() {
 
     localStorage.setItem("localList", JSON.stringify(localList));
     updateButtonState();
-
-    // clears search input after deleting the searched item
-    if (searchButton.textContent === "Clear") {
-        clearSearchInput(searchButton);
-    }
 
     // if there're no more items in the list after deletion, hides the menu
     const totalTasks = document.getElementById("task-list").children.length;
@@ -250,6 +243,9 @@ function editTask(id, p, input, button) {
     const selectedTask = document.querySelector("#task-list li.selected");
     const checkbox = selectedTask.querySelector("input[type = 'checkbox']");
 
+    // clears search bar if editing a searched item
+    if (searchBar.value !== "") clearSearchBar();
+
     // disabling editing mode, unchecking task and disabling delete/edit button
     checkbox.checked = false;
     toggleEditing(p, input, button);
@@ -261,6 +257,9 @@ function editTask(id, p, input, button) {
 /////////////////////////////////
 
 selectFilter.addEventListener("change", (event) => {
+    // clears search bar before filtering
+    if (searchBar.value !== "") clearSearchBar();
+
     const tasks = taskList.querySelectorAll("li");
     const typeFilter = event.target.value;
 
@@ -316,10 +315,14 @@ searchBar.addEventListener("input", () => {
     searchDelay = setTimeout(() => {
         const tasks = document.querySelectorAll("li");
         const searchInput = searchBar.value;
+        selectFilter.value = "default";
 
         if (searchInput === "") {
-            reloadTaskList();
+            clearSearchBar();
+            return;
         }
+
+        clearSearchButton.classList.add("active");
 
         // hides tasks that aren't found
         tasks.forEach((task) => {
@@ -334,7 +337,8 @@ searchBar.addEventListener("input", () => {
 });
 
 // clear search button onClick function
-function clearSearchInput() {
+function clearSearchBar() {
     searchBar.value = "";
+    clearSearchButton.classList.remove("active");
     reloadTaskList();
 }

@@ -32,18 +32,22 @@
                 </svg></button>
 
             <div id="hidden-menu" class="hidden-menu">
-                <button disabled onclick="deleteTask()" id="delete-btn">Delete</button>
-                <button disabled onclick="enableEditMode()" id="edit-btn">Edit</button>
+                <div class="btn-row">
+                    <button disabled onclick="deleteTask()" id="delete-btn">Delete</button>
+                    <button disabled onclick="enableEditMode()" id="edit-btn">Edit</button>
 
-                <select name="filter-items" id="filter-select">
-                    <option value="" disabled selected hidden>Filter</option>
-                    <option value="done">Done</option>
-                    <option value="pending">Pending</option>
-                    <option value="none">None</option>
-                </select>
+                    <select name="filter-items" id="filter-select">
+                        <option value="default" disabled selected hidden>Filter</option>
+                        <option value="done">Done</option>
+                        <option value="pending">Pending</option>
+                        <option value="none">None</option>
+                    </select>
+                </div>
 
-                <input type="text" name="search" id="search-bar">
-                <button onclick="clearSearchInput()" id="search-btn">Clear</button>
+                <div class="search-row">
+                    <input type="text" name="search" id="search-bar" placeholder="Search">
+                    <button onclick="clearSearchBar()" id="search-btn">x</button>
+                </div>
             </div>
 
             <div>

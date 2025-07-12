@@ -16,6 +16,7 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 function reloadTaskList() {
+    taskList.innerHTML = "";
     localList.forEach((task) => {
         [id, taskValue, taskStatus] = task;
         const item = createTask(taskValue, id, taskStatus);
@@ -177,7 +178,6 @@ function createTask(taskValue, id, taskStatus) {
 function clearAllTasks() {
     if (!localList.length) return;
 
-    taskList.innerHTML = "";
     localStorage.removeItem("localList");
     localList.length = 0;
     hideMenu();
@@ -318,7 +318,6 @@ searchBar.addEventListener("input", () => {
         const searchInput = searchBar.value;
 
         if (searchInput === "") {
-            taskList.innerHTML = "";
             reloadTaskList();
         }
 
@@ -334,13 +333,8 @@ searchBar.addEventListener("input", () => {
     }, 200);
 });
 
-// stops search mode and shows all tasks again
+// clear search button onClick function
 function clearSearchInput() {
-    const input = document.getElementById("search-bar");
-    input.value = "";
-    input.readOnly = false;
-
-    searchButton.textContent = "Search";
-    taskList.innerHTML = "";
+    searchBar.value = "";
     reloadTaskList();
 }

@@ -7,65 +7,46 @@ const newTaskInput = document.getElementById("new-task");
 const selectSort = document.getElementById("sort-select");
 let ID = 0; // unique id for each list item
 
+// displays list items when page is loaded
+window.addEventListener("DOMContentLoaded", () => {
+    if (!localList.length) return;
+    reloadTaskList();
+    arrowButton.style.display = "flex";
+});
+
+function reloadTaskList(list = localList) {
+    list.forEach((task) => {
+        [id, taskValue, taskStatus] = task;
+        const item = createTask(taskValue, id, taskStatus);
+        taskList.appendChild(item);
+    });
+}
+
+// event bubbling - when a checkbox inside a li triggers a 'change', it also triggers this event listener on ul
 taskList.addEventListener("change", () => {
-    // enables delete and edit button depending on number of selected items in task list
     updateButtonState();
 });
 
-selectSort.addEventListener("change", (event) => {
-    const tasks = taskList.querySelectorAll("li");
-    const doneList = [];
-    const pendingList = [];
-    let sortedList = localList;
+// enables delete button and edit button depending on number of selected items in task list
+function updateButtonState() {
+    const deleteButton = document.getElementById("delete-btn");
+    const editButton = document.getElementById("edit-btn");
 
-    tasks.forEach((task) => {
-        const id = task.querySelector("span").textContent;
-        const taskValue = task.querySelector("p");
-        if (taskValue.classList.contains("done")) {
-            doneList.push([id, taskValue.textContent, 1]);
-        } else {
-            pendingList.push([id, taskValue.textContent, 0]);
-        }
-    });
+    const checkboxes = taskList.querySelectorAll("input[type='checkbox']");
+    // needs to convert NodeList to array to use filter
+    const checkedBoxes = Array.from(checkboxes).filter((cb) => cb.checked);
 
-    if (event.target.value === "done") {
-        sortedList = [...doneList, ...pendingList];
-    } else if (event.target.value === "pending") {
-        sortedList = [...pendingList, ...doneList];
-    }
+    const anyChecked = checkedBoxes.length > 0;
+    const onlyOneChecked = checkedBoxes.length === 1;
 
-    taskList.innerHTML = "";
+    // must be ! so it sets disable to false and enables the button
+    deleteButton.disabled = !anyChecked;
+    editButton.disabled = !onlyOneChecked;
+}
 
-    sortedList.forEach((task) => {
-        [id, taskValue, taskStatus] = task;
-        const item = createTaskItem(taskValue, id, taskStatus);
-        taskList.appendChild(item);
-    });
-});
-
-// adds tasks by pressing enter key
-newTaskInput.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-        addTask();
-    }
-});
-
-// displays list items when page is loaded
-window.addEventListener("DOMContentLoaded", () => {
-    if (localList.length) {
-        localList.forEach((task) => {
-            [id, taskValue, taskStatus] = task;
-            const item = createTaskItem(taskValue, id, taskStatus);
-            taskList.appendChild(item);
-        });
-
-        arrowButton.style.display = "flex";
-    }
-});
-
+// arrow button onClick function
 function toggleMenu() {
     const hiddenMenu = document.getElementById("hidden-menu");
-
     arrowButton.classList.toggle("active");
     hiddenMenu.classList.toggle("active");
 }
@@ -101,124 +82,41 @@ function findTaskIndex(id) {
     return -1;
 }
 
-function deleteTask() {
-    const selectedTasks = document.querySelectorAll("#task-list li.selected");
-    let taskList = undefined;
+/////////////////////////////////
+///////// ADD NEW TASK //////////
+/////////////////////////////////
 
-    selectedTasks.forEach((task) => {
-        const id = task.querySelector("span");
-        const index = findTaskIndex(Number(id.textContent));
-        task.remove();
-        localList.splice(index, 1);
-        taskList = document.getElementById("task-list").children.length;
-    });
-
-    // clears search input after deleting the searched item
-    if (searchButton.textContent === "Clear") {
-        clearSearchInput(searchButton);
+// adds tasks by pressing enter key
+newTaskInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        addTask();
     }
+});
 
-    // if there're no more items in the list after deletion, hides the menu
-    if (!taskList) {
-        hideMenu();
-    }
+// add task button onClick function
+function addTask() {
+    const id = ID++;
+    const newTask = document.getElementById("new-task");
+    const taskValue = newTask.value.trim();
+    newTask.value = "";
 
-    updateButtonState();
+    if (!taskValue) return;
+
+    // third value represents task completion status. default is 0 = pending
+    const item = createTask(taskValue, id, 0);
+    taskList.appendChild(item);
+
+    localList.push([id, taskValue, 0]);
     localStorage.setItem("localList", JSON.stringify(localList));
+
+    arrowButton.style.display = "flex";
+
+    // disables search mode if adding a task before clearing search input
+    if (searchButton.textContent === "Clear") clearSearchInput(searchButton);
 }
 
-// toggles editing mode
-function toggleEditing(p, input, button) {
-    p.classList.toggle("editing");
-    input.classList.toggle("editing");
-    input.focus();
-    button.classList.toggle("editing");
-    button.textContent = button.textContent === "Done" ? "Change" : "Done";
-}
-
-// onClick function for edit button
-function enableEditTask() {
-    const selectedTask = document.querySelector("#task-list li.selected");
-    const p = selectedTask.querySelector("p");
-    const input = selectedTask.querySelector("input.edit-input");
-    const button = selectedTask.querySelector("button");
-
-    input.value = p.textContent;
-    toggleEditing(p, input, button);
-}
-
-// edits tasks updating p tag with new input
-function editTask(id, p, input, button) {
-    const newTask = input.value;
-
-    if (newTask) {
-        p.textContent = newTask;
-        const index = findTaskIndex(Number(id.textContent));
-        localList[index][1] = newTask;
-        localStorage.setItem("localList", JSON.stringify(localList));
-    } else {
-        input.value = p.textContent;
-    }
-
-    const selectedTask = document.querySelector("#task-list li.selected");
-    const checkbox = selectedTask.querySelector("input[type = 'checkbox']");
-    checkbox.checked = false;
-
-    toggleEditing(p, input, button);
-    updateButtonState();
-}
-
-// also enables input box and show all task items
-function clearSearchInput() {
-    const input = document.getElementById("search-input");
-    const tasks = document.querySelectorAll("li");
-
-    tasks.forEach((task) => {
-        if (task.classList.contains("hide")) {
-            task.classList.toggle("hide");
-        }
-    });
-    searchButton.textContent = "Search";
-    input.value = "";
-    input.readOnly = false;
-}
-
-function searchTask() {
-    function fuzzyMatch(input, target) {
-        input = input.toLowerCase();
-        target = target.toLowerCase();
-
-        let i = 0;
-        for (let char of target) {
-            if (char === input[i]) {
-                i++;
-                if (i === input.length) return true;
-            }
-        }
-        return false;
-    }
-
-    const input = document.getElementById("search-input");
-    const tasks = document.querySelectorAll("li");
-
-    if (input.value.trim() === "") return;
-
-    if (searchButton.textContent === "Search") {
-        tasks.forEach((task) => {
-            const taskValue = task.querySelector("p");
-            if (!fuzzyMatch(input.value, taskValue.textContent)) {
-                task.classList.toggle("hide");
-            }
-        });
-        searchButton.textContent = "Clear";
-        input.readOnly = true;
-    } else {
-        clearSearchInput();
-    }
-}
-
-function createTaskItem(taskValue, id, taskStatus) {
-    const item = document.createElement("li");
+function createTask(taskValue, id, taskStatus) {
+    const task = document.createElement("li");
 
     // hidden span that works as a unique id for each task
     const span = document.createElement("span");
@@ -242,78 +140,206 @@ function createTaskItem(taskValue, id, taskStatus) {
     button.classList.add("done-btn");
 
     checkbox.addEventListener("change", () => {
-        item.classList.toggle("selected");
-        if (input.classList.contains("editing")) {
-            toggleEditing(p, input, button);
-        }
+        task.classList.toggle("selected");
+        // disables editing mode if unchecking task
+        if (input.classList.contains("editing")) toggleEditing(p, input, button);
     });
 
     button.addEventListener("click", () => {
+        // in editing mode 'done' button becomes 'change'
         if (button.classList.contains("editing")) {
             editTask(span, p, input, button);
-            item.classList.toggle("selected"); // removes selected class from task
+            task.classList.toggle("selected"); // removes class 'selected' from task
         } else {
-            const index = findTaskIndex(id);
-            localList[index][2] = 1;
-            localStorage.setItem("localList", JSON.stringify(localList));
+            // marks and unmarks a task as done and updates taskStatus on localList and and localStorage
             p.classList.toggle("done");
+            const index = findTaskIndex(id);
+            localList[index][2] = p.classList.contains("done") ? 1 : 0;
+            localStorage.setItem("localList", JSON.stringify(localList));
         }
     });
 
-    item.appendChild(span);
-    item.appendChild(checkbox);
-    item.appendChild(p);
-    item.appendChild(input);
-    item.appendChild(button);
+    task.appendChild(span);
+    task.appendChild(checkbox);
+    task.appendChild(p);
+    task.appendChild(input);
+    task.appendChild(button);
 
-    return item;
+    return task;
 }
 
-function addTask() {
-    const id = ID++;
-    const newTask = document.getElementById("new-task");
-    const taskValue = newTask.value.trim();
+/////////////////////////////////
+////////// DELETE TASK //////////
+/////////////////////////////////
 
-    if (taskValue === "") return;
-    const item = createTaskItem(taskValue, id, 0);
-    taskList.appendChild(item);
+// clear list button onClick function
+function clearAllTasks() {
+    if (!localList.length) return;
 
-    // third value represents task completion status. default is 0 = pending
-    localList.push([id, taskValue, 0]);
+    taskList.innerHTML = "";
+    localStorage.removeItem("localList");
+    localList.length = 0;
+    hideMenu();
+
+    // disables search mode if deleting all tasks before clearing search input
+    if (searchButton.textContent === "Clear") clearSearchInput(searchButton);
+}
+
+function deleteTask() {
+    const selectedTasks = document.querySelectorAll("#task-list li.selected");
+
+    selectedTasks.forEach((task) => {
+        const id = task.querySelector("span");
+        const index = findTaskIndex(Number(id.textContent));
+        task.remove();
+        localList.splice(index, 1);
+    });
+
     localStorage.setItem("localList", JSON.stringify(localList));
-    newTask.value = "";
+    updateButtonState();
 
+    // clears search input after deleting the searched item
     if (searchButton.textContent === "Clear") {
         clearSearchInput(searchButton);
     }
 
-    arrowButton.style.display = "flex";
-}
-
-function clearAllTasks() {
-    if (localList.length) {
-        taskList.innerHTML = "";
-        localStorage.removeItem("localList");
-        localList.length = 0;
+    // if there're no more items in the list after deletion, hides the menu
+    const totalTasks = document.getElementById("task-list").children.length;
+    if (!totalTasks) {
         hideMenu();
-        if (searchButton.textContent === "Clear") {
-            clearSearchInput(searchButton);
-        }
     }
 }
 
-function updateButtonState() {
-    const deleteButton = document.getElementById("delete-btn");
-    const editButton = document.getElementById("edit-btn");
+/////////////////////////////////
+/////////// EDIT TASK ///////////
+/////////////////////////////////
 
-    const checkboxes = taskList.querySelectorAll("input[type='checkbox']");
-    // needs to convert NodeList to array to use filter
-    const checkedBoxes = Array.from(checkboxes).filter((cb) => cb.checked);
+// edit button onClick function
+function enableEditMode() {
+    const selectedTask = document.querySelector("#task-list li.selected");
+    const p = selectedTask.querySelector("p");
+    const input = selectedTask.querySelector("input.edit-input");
+    const button = selectedTask.querySelector("button");
 
-    const anyChecked = checkedBoxes.length > 0;
-    const onlyOneChecked = checkedBoxes.length === 1;
+    input.value = p.textContent;
+    toggleEditing(p, input, button);
+}
 
-    // must be ! so it sets disable to false and enables the button
-    deleteButton.disabled = !anyChecked;
-    editButton.disabled = !onlyOneChecked;
+// toggles editing mode
+function toggleEditing(p, input, button) {
+    p.classList.toggle("editing");
+    input.classList.toggle("editing");
+    button.classList.toggle("editing");
+    input.focus();
+    button.textContent = button.textContent === "Done" ? "Change" : "Done";
+}
+
+function editTask(id, p, input, button) {
+    const newTask = input.value;
+
+    if (newTask) {
+        p.textContent = newTask;
+        const index = findTaskIndex(Number(id.textContent));
+        localList[index][1] = newTask;
+        localStorage.setItem("localList", JSON.stringify(localList));
+    } else {
+        input.value = p.textContent;
+    }
+
+    const selectedTask = document.querySelector("#task-list li.selected");
+    const checkbox = selectedTask.querySelector("input[type = 'checkbox']");
+
+    // disabling editing mode, unchecking task and disabling delete/edit button
+    checkbox.checked = false;
+    toggleEditing(p, input, button);
+    updateButtonState();
+}
+
+/////////////////////////////////
+/////////// SORT TASK ///////////
+/////////////////////////////////
+
+selectSort.addEventListener("change", (event) => {
+    const tasks = taskList.querySelectorAll("li");
+    const doneList = [];
+    const pendingList = [];
+    let sortedList = localList;
+
+    tasks.forEach((task) => {
+        const id = task.querySelector("span").textContent;
+        const taskValue = task.querySelector("p");
+        if (taskValue.classList.contains("done")) {
+            doneList.push([id, taskValue.textContent, 1]);
+        } else {
+            pendingList.push([id, taskValue.textContent, 0]);
+        }
+    });
+
+    if (event.target.value === "done") {
+        sortedList = [...doneList, ...pendingList];
+    } else if (event.target.value === "pending") {
+        sortedList = [...pendingList, ...doneList];
+    }
+
+    taskList.innerHTML = "";
+
+    reloadTaskList(sortedList);
+});
+
+/////////////////////////////////
+////////// SEARCH TASK //////////
+/////////////////////////////////
+
+function searchTask() {
+    function fuzzyMatch(input, target) {
+        input = input.toLowerCase();
+        target = target.toLowerCase();
+
+        let i = 0;
+        for (let char of target) {
+            if (char === input[i]) {
+                i++;
+                if (i === input.length) return true;
+            }
+        }
+        return false;
+    }
+
+    const input = document.getElementById("search-input");
+    const tasks = document.querySelectorAll("li");
+
+    if (!input.value.trim()) return;
+
+    // checks if needs to enable or disable search mode
+    if (searchButton.textContent === "Search") {
+        tasks.forEach((task) => {
+            const taskValue = task.querySelector("p");
+            if (!fuzzyMatch(input.value, taskValue.textContent)) {
+                // hides tasks that aren't found
+                task.classList.toggle("hide");
+            }
+        });
+        searchButton.textContent = "Clear";
+        input.readOnly = true;
+        isSearching = true;
+    } else {
+        clearSearchInput();
+    }
+}
+
+// stops search mode and shows all tasks again
+function clearSearchInput() {
+    const input = document.getElementById("search-input");
+    const tasks = document.querySelectorAll("li");
+
+    tasks.forEach((task) => {
+        if (task.classList.contains("hide")) {
+            task.classList.toggle("hide");
+        }
+    });
+
+    searchButton.textContent = "Search";
+    input.value = "";
+    input.readOnly = false;
+    isSearching = false;
 }

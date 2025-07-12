@@ -2,6 +2,7 @@ const storedList = localStorage.getItem("localList");
 const localList = storedList ? JSON.parse(storedList) : [];
 const arrowButton = document.getElementById("arrow-btn");
 const searchButton = document.getElementById("search-btn");
+const searchBar = document.getElementById("search-bar");
 const taskList = document.getElementById("task-list");
 const newTaskInput = document.getElementById("new-task");
 const selectFilter = document.getElementById("filter-select");
@@ -293,7 +294,9 @@ selectFilter.addEventListener("change", (event) => {
 ////////// SEARCH TASK //////////
 /////////////////////////////////
 
-function searchTask() {
+let searchDelay; // debouncing
+
+searchBar.addEventListener("input", () => {
     function fuzzyMatch(input, target) {
         input = input.toLowerCase();
         target = target.toLowerCase();
@@ -308,30 +311,32 @@ function searchTask() {
         return false;
     }
 
-    const input = document.getElementById("search-input");
-    const tasks = document.querySelectorAll("li");
+    clearTimeout(searchDelay);
 
-    if (!input.value.trim()) return;
+    searchDelay = setTimeout(() => {
+        const tasks = document.querySelectorAll("li");
+        const searchInput = searchBar.value;
 
-    // checks if needs to enable or disable search mode
-    if (searchButton.textContent === "Search") {
+        if (searchInput === "") {
+            taskList.innerHTML = "";
+            reloadTaskList();
+        }
+
+        // hides tasks that aren't found
         tasks.forEach((task) => {
-            const taskValue = task.querySelector("p");
-            if (!fuzzyMatch(input.value, taskValue.textContent)) {
-                // hides tasks that aren't found
-                task.classList.toggle("hide");
+            const valueToFind = task.querySelector("p").textContent;
+            if (fuzzyMatch(searchInput, valueToFind)) {
+                task.classList.remove("hide");
+            } else {
+                task.classList.add("hide");
             }
         });
-        searchButton.textContent = "Clear";
-        input.readOnly = true;
-    } else {
-        clearSearchInput();
-    }
-}
+    }, 200);
+});
 
 // stops search mode and shows all tasks again
 function clearSearchInput() {
-    const input = document.getElementById("search-input");
+    const input = document.getElementById("search-bar");
     input.value = "";
     input.readOnly = false;
 

@@ -188,7 +188,7 @@ button:disabled:hover {
     font-size: 1rem;
 }
 
-#search-input {
+#search-bar {
     grid-column: 1 / 3;
 }
 

@@ -4,7 +4,7 @@ const arrowButton = document.getElementById("arrow-btn");
 const searchButton = document.getElementById("search-btn");
 const taskList = document.getElementById("task-list");
 const newTaskInput = document.getElementById("new-task");
-const selectSort = document.getElementById("sort-select");
+const selectFilter = document.getElementById("filter-select");
 let ID = 0; // unique id for each list item
 
 // displays list items when page is loaded
@@ -14,8 +14,8 @@ window.addEventListener("DOMContentLoaded", () => {
     arrowButton.style.display = "flex";
 });
 
-function reloadTaskList(list = localList) {
-    list.forEach((task) => {
+function reloadTaskList() {
+    localList.forEach((task) => {
         [id, taskValue, taskStatus] = task;
         const item = createTask(taskValue, id, taskStatus);
         taskList.appendChild(item);
@@ -256,34 +256,37 @@ function editTask(id, p, input, button) {
 }
 
 /////////////////////////////////
-/////////// SORT TASK ///////////
+///////// FILTER TASK ///////////
 /////////////////////////////////
 
-selectSort.addEventListener("change", (event) => {
+selectFilter.addEventListener("change", (event) => {
     const tasks = taskList.querySelectorAll("li");
-    const doneList = [];
-    const pendingList = [];
-    let sortedList = localList;
+    const typeFilter = event.target.value;
 
     tasks.forEach((task) => {
-        const id = task.querySelector("span").textContent;
         const taskValue = task.querySelector("p");
-        if (taskValue.classList.contains("done")) {
-            doneList.push([id, taskValue.textContent, 1]);
-        } else {
-            pendingList.push([id, taskValue.textContent, 0]);
+        switch (typeFilter) {
+            case "done":
+                if (taskValue.classList.contains("done")) {
+                    task.classList.remove("hide");
+                } else {
+                    task.classList.add("hide");
+                }
+                break;
+
+            case "pending":
+                if (taskValue.classList.contains("done")) {
+                    task.classList.add("hide");
+                } else {
+                    task.classList.remove("hide");
+                }
+                break;
+
+            case "none":
+                task.classList.remove("hide");
+                break;
         }
     });
-
-    if (event.target.value === "done") {
-        sortedList = [...doneList, ...pendingList];
-    } else if (event.target.value === "pending") {
-        sortedList = [...pendingList, ...doneList];
-    }
-
-    taskList.innerHTML = "";
-
-    reloadTaskList(sortedList);
 });
 
 /////////////////////////////////
@@ -321,7 +324,6 @@ function searchTask() {
         });
         searchButton.textContent = "Clear";
         input.readOnly = true;
-        isSearching = true;
     } else {
         clearSearchInput();
     }
@@ -330,16 +332,10 @@ function searchTask() {
 // stops search mode and shows all tasks again
 function clearSearchInput() {
     const input = document.getElementById("search-input");
-    const tasks = document.querySelectorAll("li");
-
-    tasks.forEach((task) => {
-        if (task.classList.contains("hide")) {
-            task.classList.toggle("hide");
-        }
-    });
-
-    searchButton.textContent = "Search";
     input.value = "";
     input.readOnly = false;
-    isSearching = false;
+
+    searchButton.textContent = "Search";
+    taskList.innerHTML = "";
+    reloadTaskList();
 }

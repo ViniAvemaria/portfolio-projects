@@ -225,6 +225,12 @@ button:disabled:hover {
 /////////////////////////////////
 */
 
+.task-list-container {
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 6px;
+}
+
 #task-list li {
     display: flex;
     align-items: center;

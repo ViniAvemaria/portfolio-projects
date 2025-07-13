@@ -1,8 +1,12 @@
 :root {
-    --primary-bg-color: #1e1e2e;
-    --secundary-bg-color: #282a36;
-    --border-color: #45475a;
-    --text-color: #bac2de;
+    --primary-bg-color: #0d0d0d;
+    --secundary-bg-color: #1a1a1a;
+    --input-color: #333333;
+    --border-color: #2e2e2e;
+    --text-color: #e0e0e0;
+    --muted-text-color: #a0a0a0;
+    --accent-color: #ffb300;
+    --accent-hover: #e09e00;
 }
 
 * {
@@ -37,14 +41,14 @@ h1 {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 2rem;
-    color: white;
+    color: var(--accent-color);
 }
 
 input {
     outline: none;
     font-size: 1.1rem;
-    border: 1px solid var(--primary-bg-color);
-    background-color: var(--border-color);
+    border: none;
+    background-color: var(--input-color);
     color: var(--text-color);
 }
 
@@ -54,6 +58,7 @@ button {
     border-radius: 6px;
     cursor: pointer;
     color: var(--primary-bg-color);
+    background-color: var(--text-color);
     transition: background-color 0.3s ease;
 }
 
@@ -79,7 +84,7 @@ button:disabled:hover {
 .visible-menu {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 15px;
     max-width: 350px;
     margin: 0 auto;
 }
@@ -101,7 +106,7 @@ button:disabled:hover {
     min-width: 0;
     height: 1.6rem;
     border-radius: 18px;
-    padding: 4px 10px;
+    padding: 14px 10px;
 }
 
 .btn-row {
@@ -115,21 +120,21 @@ button:disabled:hover {
 }
 
 #add-btn {
-    background-color: hsl(120, 100%, 35%);
+    background-color: var(--accent-color);
     transition: background-color 0.3s ease;
 }
 
 #add-btn:hover {
-    background-color: hsl(120, 100%, 45%);
+    background-color: var(--accent-hover);
 }
 
 #clear-btn {
-    background-color: hsl(0, 100%, 40%);
+    background-color: #d32f2f;
     transition: background-color 0.3s ease;
 }
 
 #clear-btn:hover {
-    background-color: hsl(0, 100%, 60%);
+    background-color: #b71c1c;
 }
 
 /*
@@ -148,7 +153,11 @@ button:disabled:hover {
 }
 
 #arrow-btn svg {
-    transition: transform 0.4s ease;
+    transition: transform 0.4s ease, color 0.3s ease;
+}
+
+#arrow-btn svg:hover {
+    color: var(--accent-hover);
 }
 
 #arrow-btn.active svg {
@@ -159,7 +168,7 @@ button:disabled:hover {
 .hidden-menu {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 15px;
     max-width: 350px;
     margin: 0 auto;
     max-height: 0;
@@ -180,6 +189,7 @@ button:disabled:hover {
 }
 
 #filter-select {
+    background-color: var(--text-color);
     padding: 3.5px;
     font-size: 1.1rem;
     border-radius: 6px;
@@ -212,8 +222,7 @@ button:disabled:hover {
 }
 
 #search-bar::placeholder {
-    color: var(--text-color);
-    opacity: 0.75;
+    color: var(--muted-text-color);
 }
 
 .clear-search-btn-container {
@@ -228,7 +237,7 @@ button:disabled:hover {
 #clear-search-btn {
     opacity: 0;
     background: transparent;
-    height: 1rem;
+    height: 1.2rem;
     border: none;
     margin: 0;
     padding: 0;
@@ -238,7 +247,7 @@ button:disabled:hover {
 }
 
 #clear-search-btn:hover {
-    color: white;
+    color: var(--accent-hover);
 }
 
 #clear-search-btn.active {
@@ -259,6 +268,10 @@ button:disabled:hover {
 .task-list-container {
     max-height: 250px;
     overflow-y: auto;
+}
+
+#task-list input[type="checkbox"] {
+    accent-color: var(--accent-color);
 }
 
 #task-list li {

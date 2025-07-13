@@ -31,7 +31,7 @@
                     <path d="M480-360 280-560h400L480-360Z" />
                 </svg></button>
 
-            <div id="hidden-menu" class="hidden-menu">
+            <div id="hidden-menu" class="hidden-menu active">
                 <div class="btn-row">
                     <button disabled onclick="deleteTask()" id="delete-btn">Delete</button>
                     <button disabled onclick="enableEditMode()" id="edit-btn">Edit</button>
@@ -46,7 +46,15 @@
 
                 <div class="search-row">
                     <input type="text" name="search" id="search-bar" placeholder="Search">
-                    <button onclick="clearSearchBar()" id="search-btn">x</button>
+                    <div class="clear-search-btn-container">
+                        <button onclick="clearSearchBar()" id="clear-search-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1rem" viewBox="0 -960 960 960" width="1rem"
+                                fill="currentColor">
+                                <path
+                                    d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
 

@@ -165,7 +165,7 @@ button:disabled:hover {
 .hidden-menu.active {
     opacity: 1;
     max-height: 1500px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.3rem;
     pointer-events: initial;
 }
 
@@ -185,14 +185,19 @@ button:disabled:hover {
 
 .search-row {
     display: flex;
+    align-items: center;
+    max-width: 250px;
+    width: 100%;
+    margin: 0 auto;
     background-color: var(--border-color);
     border: 1px solid var(--primary-bg-color);
     border-radius: 18px;
     padding: 4px 18px;
-    align-self: center;
 }
 
 #search-bar {
+    flex: 1;
+    min-width: 0;
     border: none;
     background: transparent;
     font-size: 1rem;
@@ -203,20 +208,37 @@ button:disabled:hover {
     opacity: 0.75;
 }
 
-#search-btn {
+.clear-search-btn-container {
+    display: flex;
+    padding-left: 5px;
+    margin-left: 5px;
+    border-left: 1px solid transparent;
+    transition: border-color 0.3s ease, border-width 0.3s ease;
+}
+
+#clear-search-btn {
     opacity: 0;
     background: transparent;
+    height: 1rem;
     border: none;
     margin: 0;
     padding: 0;
     color: var(--text-color);
     pointer-events: none;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease, color 0.3s ease;
 }
 
-#search-btn.active {
+#clear-search-btn:hover {
+    color: white;
+}
+
+#clear-search-btn.active {
     opacity: 1;
     pointer-events: initial;
+}
+
+.clear-search-btn-container:has(#clear-search-btn.active) {
+    border-left-color: var(--primary-bg-color);
 }
 
 /*

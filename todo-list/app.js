@@ -1,7 +1,7 @@
 const storedList = localStorage.getItem("localList");
 const localList = storedList ? JSON.parse(storedList) : [];
 const arrowButton = document.getElementById("arrow-btn");
-const clearSearchButton = document.getElementById("search-btn");
+const clearSearchButton = document.getElementById("clear-search-btn");
 const searchBar = document.getElementById("search-bar");
 const taskList = document.getElementById("task-list");
 const newTaskInput = document.getElementById("new-task");

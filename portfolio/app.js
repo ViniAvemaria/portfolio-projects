@@ -1,5 +1,11 @@
 document.getElementById("year").textContent = new Date().getFullYear();
 
+/*
+////////////////////////////////////
+//////////// NAV MENU //////////////
+////////////////////////////////////
+*/
+
 function toggleMenu() {
     const navbar = document.getElementById("navbar");
     const hamburger = document.getElementById("hamburger");
@@ -19,6 +25,12 @@ navLinks.forEach((link) => {
         toggleMenu();
     });
 });
+
+/*
+////////////////////////////////////
+////////// CONTACT FORM ////////////
+////////////////////////////////////
+*/
 
 const form = document.getElementById("contact-form");
 
@@ -62,3 +74,53 @@ form.addEventListener("submit", function (event) {
             alert(error);
         });
 });
+
+/*
+////////////////////////////////////
+///////// SETTINGS MENU ////////////
+////////////////////////////////////
+*/
+
+function toggleSettings() {
+    const settingsMenu = document.getElementById("settings-menu");
+    settingsMenu.classList.toggle("active");
+}
+
+/*
+////////////////////////////////////
+////////// TRANSLATION /////////////
+////////////////////////////////////
+*/
+
+const languageButton = document.getElementById("language-btn");
+const storedLanguage = localStorage.getItem("lang") || "pt-br";
+
+document.addEventListener("DOMContentLoaded", () => {
+    setLanguage(storedLanguage);
+});
+
+languageButton.addEventListener("click", () => {
+    const currentLanguage = localStorage.getItem("lang");
+    const differentLanguage = currentLanguage === "pt-br" ? "en-us" : "pt-br";
+    setLanguage(differentLanguage);
+});
+
+function setLanguage(lang) {
+    const elements = document.querySelectorAll("[data-i18n]");
+    elements.forEach((element) => {
+        const key = element.getAttribute("data-i18n");
+        const keys = key.split(".");
+        let text = translations[lang];
+
+        for (const key of keys) {
+            text = text?.[key];
+        }
+
+        if (text) {
+            element.innerHTML = text;
+        }
+    });
+
+    document.title = translations[lang].title || document.title;
+    localStorage.setItem("lang", lang);
+}

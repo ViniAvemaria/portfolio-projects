@@ -13,7 +13,7 @@
 <body>
     <header>
         <div class="container">
-            <h1><a href="#home">Portfólio</a></h1>
+            <h1><a href="#home" data-i18n="title">Portfólio</a></h1>
             <button onclick="toggleMenu()" id="nav-btn" class="nav-btn">
                 <div id="hamburger" class="hamburger">
                     <span></span>
@@ -23,10 +23,31 @@
             </button>
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a class="nav-links" href="#about-me">Sobre mim</a></li>
-                    <li><a class="nav-links" href="#skills">Habilidades</a></li>
-                    <li><a class="nav-links" href="#projects">Projetos</a></li>
-                    <li><a class="nav-links" href="#contact">Contato</a></li>
+                    <li><a class="nav-links" href="#about-me" data-i18n="nav.about">Sobre mim</a></li>
+                    <li><a class="nav-links" href="#skills" data-i18n="nav.skills">Habilidades</a></li>
+                    <li><a class="nav-links" href="#projects" data-i18n="nav.projects">Projetos</a></li>
+                    <li><a class="nav-links" href="#contact" data-i18n="nav.contact">Contato</a></li>
+                    <li>
+                        <button onclick="toggleSettings()" id="settings-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1.6rem" viewBox="0 -960 960 960"
+                                width="1.6rem" fill="currentColor">
+                                <path
+                                    d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z" />
+                            </svg>
+                        </button>
+                        <ul id="settings-menu" class="settings-menu">
+                            <li>
+                                <button id="language-btn" class="settings-menu-btn">
+                                    <span id="portuguese">PT</span> / <span id="english">EN</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="settings-menu-btn">
+                                    TEST
+                                </button>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -36,8 +57,8 @@
         <section id="home">
             <div class="container">
                 <div class="greeting-container">
-                    <h2>Olá, eu sou o <span id="name-span">Vinicius</span></h2>
-                    <h2>Desenvolvedor Full Stack</h2>
+                    <h2 data-i18n="greeting1">Olá, eu sou o <span id="name-span">Vinicius</span></h2>
+                    <h2 data-i18n="greeting2">Desenvolvedor Full Stack</h2>
                     <div class="social-container">
                         <a href="https://github.com/ViniAvemaria" target="_blank" rel="noopener noreferrer">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -63,8 +84,8 @@
         <section id="about-me">
             <div class="container">
                 <div class="card">
-                    <h2>Apresentação</h2>
-                    <p>
+                    <h2 data-i18n="section.about.title">Apresentação</h2>
+                    <p data-i18n="section.about.text">
                         Sou Vinicius de Moura Avemaria, estudante de Engenharia de Software e atualmente em formação
                         como Desenvolvedor Full Stack Júnior pelo curso da +PraTi. <br><br>
                         Tenho me desenvolvido por meio de projetos pessoais e acadêmicos, sempre buscando aplicar na
@@ -80,7 +101,7 @@
         <section id="skills">
             <div class="container">
                 <div class="card">
-                    <h2>Habilidades</h2>
+                    <h2 data-i18n="section.skills.title">Habilidades</h2>
                     <div class="skills-display">
                         <div class="skill-container">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original-wordmark.svg"
@@ -122,7 +143,7 @@
         <section id="projects">
             <div class="container">
                 <div class="card">
-                    <h2>Projetos</h2>
+                    <h2 data-i18n="section.projects.title">Projetos</h2>
                     <div id="projects-display">
                         <div class="project-container">
                             <a href="https://viniavemaria.github.io/portfolio-projects/todo-list/" target="_blank"
@@ -131,7 +152,7 @@
                                     <img src="assets/Todo-list-screenshot.png" width="230" alt="to-do list project">
                                 </div>
                             </a>
-                            <h3>To-do List</h3>
+                            <h3 data-i18n="project.todo">To-do List</h3>
                         </div>
 
                         <div class="project-container">
@@ -139,7 +160,7 @@
                                 <div class="project-card">
                                 </div>
                             </a>
-                            <h3>Nome do Projeto</h3>
+                            <h3 data-i18n="project.name">Nome do Projeto</h3>
 
                         </div>
 
@@ -148,7 +169,7 @@
                                 <div class="project-card">
                                 </div>
                             </a>
-                            <h3>Nome do Projeto</h3>
+                            <h3 data-i18n="project.name">Nome do Projeto</h3>
 
                         </div>
                     </div>
@@ -159,26 +180,26 @@
         <section id="contact">
             <div class="container">
                 <div class="card">
-                    <h2>Deixe uma mensagem</h2>
+                    <h2 data-i18n="section.contact.title">Deixe uma mensagem</h2>
                     <form action="https://formspree.io/f/mblyvawd" method="POST" class="contact-form" id="contact-form">
                         <div>
-                            <label for="name">Nome</label>
+                            <label for="name" data-i18n="form.name">Nome</label>
                             <input type="text" name="name" id="name">
                         </div>
 
                         <div>
-                            <label for="email">Email</label>
+                            <label for="email" data-i18n="form.email">Email</label>
                             <input type="email" name="email" id="email">
                         </div>
 
                         <div>
-                            <label for="message">Mensagem</label>
+                            <label for="message" data-i18n="form.message">Mensagem</label>
                             <textarea name="message" id="message"></textarea>
                         </div>
 
                         <input type="text" name="_gotcha" style="display:none">
 
-                        <button type="submit" id="send-btn">Enviar</button>
+                        <button type="submit" id="send-btn" data-i18n="form.send">Enviar</button>
 
                         <p id="form-result"></p>
                     </form>
@@ -194,6 +215,7 @@
     </footer>
 
     <script src="app.js"></script>
+    <script src="translation.js"></script>
 </body>
 
 </html>

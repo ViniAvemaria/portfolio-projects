@@ -79,7 +79,14 @@ h1 a:hover {
     list-style: none;
 }
 
+.navbar ul li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .nav-links {
+    width: 100%;
     transition: color 0.3s ease;
 }
 
@@ -149,6 +156,56 @@ h1 a:hover {
 .hamburger.active span:nth-child(3) {
     transform: rotate(-45deg);
     top: 10px;
+}
+
+/*
+////////////////////////////////////
+///////// SETTINGS MENU ////////////
+////////////////////////////////////
+*/
+
+#settings-btn {
+    display: flex;
+    border: none;
+    background: none;
+    color: var(--primary-text-color);
+    cursor: pointer;
+    padding: 0;
+}
+
+#settings-btn svg {
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+#settings-btn:hover svg {
+    color: var(--hover-color);
+    transform: rotate(-50deg);
+}
+
+.settings-menu {
+    position: fixed;
+    opacity: 0;
+    top: 5rem;
+    background-color: var(--primary-bg-color);
+    pointer-events: none;
+    transform-origin: top;
+    border: 1px solid var(--border-color);
+    transform: scaleY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.settings-menu.active {
+    opacity: 1;
+    pointer-events: initial;
+    transform: scaleY(1);
+}
+
+.settings-menu-btn {
+    color: var(--primary-text-color);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
 }
 
 /*
@@ -430,6 +487,7 @@ footer p {
     .navbar {
         position: fixed;
         visibility: hidden;
+        height: 100%;
         opacity: 0;
         width: 90%;
         top: 5rem;
@@ -464,13 +522,19 @@ footer p {
 
     .nav-links {
         display: block;
-        padding: 2.5rem 3rem 2.5rem 3rem;
+        padding: 2.5rem 3rem;
         transition: background-color 0.3s ease;
         text-align: center;
     }
 
     .nav-links:hover {
         color: var(--primary-text-color);
-        background-color: var(--primary-color);
+        background-color: var(--hover-color);
+    }
+}
+
+@media (max-height: 480px) {
+    .nav-links {
+        padding: 1.5rem 3rem;
     }
 }

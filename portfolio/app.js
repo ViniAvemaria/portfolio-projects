@@ -81,9 +81,21 @@ form.addEventListener("submit", function (event) {
 ////////////////////////////////////
 */
 
-function toggleSettings() {
-    const settingsMenu = document.getElementById("settings-menu");
+const settingsMenu = document.getElementById("settings-menu");
+const settingsButtons = document.querySelectorAll(".settings-menu-btn");
+
+settingsButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        settingsMenu.classList.toggle("active");
+    });
+});
+
+function toggleSettingsMenu() {
     settingsMenu.classList.toggle("active");
+
+    setTimeout(() => {
+        settingsMenu.classList.toggle("closing");
+    }, 300);
 }
 
 /*
@@ -97,13 +109,28 @@ const storedLanguage = localStorage.getItem("lang") || "pt-br";
 
 document.addEventListener("DOMContentLoaded", () => {
     setLanguage(storedLanguage);
+    selectedLanguage(storedLanguage);
 });
 
 languageButton.addEventListener("click", () => {
     const currentLanguage = localStorage.getItem("lang");
     const differentLanguage = currentLanguage === "pt-br" ? "en-us" : "pt-br";
     setLanguage(differentLanguage);
+    selectedLanguage(differentLanguage);
 });
+
+function selectedLanguage(lang) {
+    const portuguese = document.getElementById("portuguese-lang");
+    const english = document.getElementById("english-lang");
+
+    if (lang === "pt-br") {
+        portuguese.classList.add("active");
+        english.classList.remove("active");
+    } else {
+        portuguese.classList.remove("active");
+        english.classList.add("active");
+    }
+}
 
 function setLanguage(lang) {
     const elements = document.querySelectorAll("[data-i18n]");
@@ -118,6 +145,8 @@ function setLanguage(lang) {
 
         if (text) {
             element.innerHTML = text;
+        } else {
+            console.warn(`Missing translation for ${key}`);
         }
     });
 

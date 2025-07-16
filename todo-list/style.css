@@ -1,12 +1,12 @@
 :root {
-    --primary-bg-color: #0d0d0d;
-    --secundary-bg-color: #1a1a1a;
-    --input-color: #333333;
-    --border-color: #2e2e2e;
-    --text-color: #e0e0e0;
-    --muted-text-color: #a0a0a0;
-    --accent-color: #ffb300;
-    --accent-hover: #e09e00;
+    --accent: #ffb300;
+    --hover: #e09e00;
+    --primary-bg: #0d0d0d;
+    --secundary-bg: #1a1a1a;
+    --primary-text: #e0e0e0;
+    --secundary-text: #a0a0a0;
+    --input-bg: #333333;
+    --border: #2e2e2e;
 }
 
 * {
@@ -17,8 +17,8 @@
 
 body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--primary-bg-color);
-    color: var(--text-color);
+    background-color: var(--primary-bg);
+    color: var(--primary-text);
 }
 
 main {
@@ -32,8 +32,8 @@ main {
     max-width: 450px;
     width: 90%;
     padding: 2.5rem;
-    background-color: var(--secundary-bg-color);
-    border: 1px solid var(--border-color);
+    background-color: var(--secundary-bg);
+    border: 1px solid var(--border);
     border-radius: 20px;
 }
 
@@ -41,15 +41,15 @@ h1 {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 2rem;
-    color: var(--accent-color);
+    color: var(--accent);
 }
 
 input {
     outline: none;
     font-size: 1.1rem;
     border: none;
-    background-color: var(--input-color);
-    color: var(--text-color);
+    background-color: var(--input-bg);
+    color: var(--primary-text);
 }
 
 button {
@@ -57,8 +57,8 @@ button {
     font-size: 1.1rem;
     border-radius: 6px;
     cursor: pointer;
-    color: var(--primary-bg-color);
-    background-color: var(--text-color);
+    color: var(--primary-bg);
+    background-color: var(--primary-text);
     transition: background-color 0.3s ease;
 }
 
@@ -109,6 +109,12 @@ button:disabled:hover {
     padding: 14px 10px;
 }
 
+.label-input-row input:focus {
+    outline-color: var(--accent);
+    outline-style: solid;
+    outline-width: 1px;
+}
+
 .btn-row {
     display: flex;
     gap: 12px;
@@ -120,12 +126,12 @@ button:disabled:hover {
 }
 
 #add-btn {
-    background-color: var(--accent-color);
+    background-color: var(--accent);
     transition: background-color 0.3s ease;
 }
 
 #add-btn:hover {
-    background-color: var(--accent-hover);
+    background-color: var(--hover);
 }
 
 #clear-btn {
@@ -149,7 +155,7 @@ button:disabled:hover {
     background: none;
     margin: 0 auto;
     padding: 5px;
-    color: var(--text-color);
+    color: var(--primary-text);
 }
 
 #arrow-btn svg {
@@ -157,7 +163,7 @@ button:disabled:hover {
 }
 
 #arrow-btn svg:hover {
-    color: var(--accent-hover);
+    color: var(--hover);
 }
 
 #arrow-btn.active svg {
@@ -189,11 +195,11 @@ button:disabled:hover {
 }
 
 #filter-select {
-    background-color: var(--text-color);
+    background-color: var(--primary-text);
     padding: 3.5px;
     font-size: 1.1rem;
     border-radius: 6px;
-    color: var(--primary-bg-color);
+    color: var(--primary-bg);
     cursor: pointer;
     outline: none;
 }
@@ -208,10 +214,14 @@ button:disabled:hover {
     max-width: 280px;
     width: 100%;
     margin: 0 auto;
-    background-color: var(--border-color);
-    border: 1px solid var(--primary-bg-color);
+    background-color: var(--border);
+    border: 1px solid var(--primary-bg);
     border-radius: 18px;
     padding: 4px 18px;
+}
+
+.search-row:has(input:focus) {
+    border: 1px solid var(--accent);
 }
 
 #search-bar {
@@ -222,7 +232,7 @@ button:disabled:hover {
 }
 
 #search-bar::placeholder {
-    color: var(--muted-text-color);
+    color: var(--secundary-text);
 }
 
 .clear-search-btn-container {
@@ -241,13 +251,13 @@ button:disabled:hover {
     border: none;
     margin: 0;
     padding: 0;
-    color: var(--text-color);
+    color: var(--primary-text);
     pointer-events: none;
     transition: opacity 0.3s ease, color 0.3s ease;
 }
 
 #clear-search-btn:hover {
-    color: var(--accent-hover);
+    color: var(--hover);
 }
 
 #clear-search-btn.active {
@@ -256,7 +266,7 @@ button:disabled:hover {
 }
 
 .clear-search-btn-container:has(#clear-search-btn.active) {
-    border-left-color: var(--primary-bg-color);
+    border-left-color: var(--primary-bg);
 }
 
 /*
@@ -271,7 +281,7 @@ button:disabled:hover {
 }
 
 #task-list input[type="checkbox"] {
-    accent-color: var(--accent-color);
+    accent-color: var(--accent);
 }
 
 #task-list li {
@@ -279,7 +289,7 @@ button:disabled:hover {
     align-items: center;
     gap: 8px;
     width: 100%;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--border);
     padding: 1rem 0;
 }
 

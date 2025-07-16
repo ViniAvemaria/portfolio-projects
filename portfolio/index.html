@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
-    <link rel="icon" href="assets/favicon.ico" type="image/x-ico">
-    <link rel="stylesheet" href="style.css">
+    <link id="favicon" rel="icon" href="assets/favicon-dark.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles/style.css">
     <title>Portfólio</title>
 </head>
 
@@ -37,12 +37,12 @@
                         </button>
                         <ul id="settings-menu" class="settings-menu">
                             <li>
-                                <button id="language-btn" class="settings-menu-btn">
+                                <button onclick="changeLanguage()" id="language-btn" class="settings-menu-btn">
                                     <span id="portuguese-lang">PT</span> / <span id="english-lang">EN</span>
                                 </button>
                             </li>
                             <li>
-                                <button id="theme-btn" class="settings-menu-btn">
+                                <button onclick="changeTheme()" id="theme-btn" class="settings-menu-btn">
                                     <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" height="1.5rem"
                                         viewBox="0 -960 960 960" width="1.4rem" fill="currentColor">
                                         <path
@@ -158,7 +158,7 @@
                             <a href="https://viniavemaria.github.io/portfolio-projects/todo-list/" target="_blank"
                                 rel="noopener noreferrer">
                                 <div class="project-card">
-                                    <img class="project-img" src="assets/Todo-list-screenshot.png"
+                                    <img class="project-img" src="assets/todo-list-project.png"
                                         alt="to-do list project">
                                 </div>
                             </a>
@@ -226,8 +226,8 @@
         </div>
     </footer>
 
-    <script src="app.js"></script>
-    <script src="translation.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/translation.js"></script>
 </body>
 
 </html>

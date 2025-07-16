@@ -1,3 +1,20 @@
+const storedLanguage = localStorage.getItem("lang") || "pt-br";
+const storedTheme = localStorage.getItem("theme");
+const themeButton = document.getElementById("theme-btn");
+
+// sets language and theme based on data in localStorage when page is loaded
+document.addEventListener("DOMContentLoaded", () => {
+    setLanguage(storedLanguage);
+    selectedLanguage(storedLanguage);
+
+    if (storedTheme === "light") {
+        document.documentElement.classList.add("light");
+        themeButton.classList.add("light");
+        updateFavicon("light");
+    }
+});
+
+// updates copyright year
 document.getElementById("year").textContent = new Date().getFullYear();
 
 /*
@@ -6,6 +23,7 @@ document.getElementById("year").textContent = new Date().getFullYear();
 ////////////////////////////////////
 */
 
+// nav button onClick function
 function toggleMenu() {
     const navbar = document.getElementById("navbar");
     const hamburger = document.getElementById("hamburger");
@@ -20,6 +38,7 @@ function toggleMenu() {
 
 const navLinks = document.querySelectorAll(".nav-links");
 
+// closes navbar after clicking a link
 navLinks.forEach((link) => {
     link.addEventListener("click", () => {
         toggleMenu();
@@ -34,6 +53,7 @@ navLinks.forEach((link) => {
 
 const form = document.getElementById("contact-form");
 
+// submits for to formspree
 form.addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -82,14 +102,9 @@ form.addEventListener("submit", function (event) {
 */
 
 const settingsMenu = document.getElementById("settings-menu");
-const settingsButtons = document.querySelectorAll(".settings-menu-btn");
+const settingsButton = document.getElementById("settings-btn");
 
-settingsButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-        settingsMenu.classList.toggle("active");
-    });
-});
-
+// settings menu button onClick function
 function toggleSettingsMenu() {
     settingsMenu.classList.toggle("active");
 
@@ -98,27 +113,54 @@ function toggleSettingsMenu() {
     }, 300);
 }
 
+// closes settings menu when clicking outside the menu
+document.addEventListener("click", (event) => {
+    const clickedInsideMenu = settingsMenu.contains(event.target);
+    const clickedToggle = settingsButton.contains(event.target);
+
+    if (!clickedInsideMenu && !clickedToggle) {
+        settingsMenu.classList.remove("active");
+
+        setTimeout(() => {
+            settingsMenu.classList.remove("closing");
+        }, 300);
+    }
+});
+
+// theme button onClick function
+function changeTheme() {
+    themeButton.classList.toggle("light");
+    document.documentElement.classList.toggle("light");
+
+    const isLight = document.documentElement.classList.contains("light");
+    localStorage.setItem("theme", isLight ? "light" : "dark");
+    updateFavicon(isLight ? "light" : "dark");
+}
+
+// changes page's favicon
+function updateFavicon(theme) {
+    const favicon = document.getElementById("favicon");
+    if (!favicon) return;
+
+    const path = theme === "light" ? "assets/favicon-light.ico" : "assets/favicon-dark.ico";
+    favicon.setAttribute("href", path);
+}
+
 /*
 ////////////////////////////////////
 ////////// TRANSLATION /////////////
 ////////////////////////////////////
 */
 
-const languageButton = document.getElementById("language-btn");
-const storedLanguage = localStorage.getItem("lang") || "pt-br";
-
-document.addEventListener("DOMContentLoaded", () => {
-    setLanguage(storedLanguage);
-    selectedLanguage(storedLanguage);
-});
-
-languageButton.addEventListener("click", () => {
+// language button onClick function
+function changeLanguage() {
     const currentLanguage = localStorage.getItem("lang");
     const differentLanguage = currentLanguage === "pt-br" ? "en-us" : "pt-br";
     setLanguage(differentLanguage);
     selectedLanguage(differentLanguage);
-});
+}
 
+// changes the selected language on the language button
 function selectedLanguage(lang) {
     const portuguese = document.getElementById("portuguese-lang");
     const english = document.getElementById("english-lang");
@@ -132,6 +174,7 @@ function selectedLanguage(lang) {
     }
 }
 
+// changes page's language
 function setLanguage(lang) {
     const elements = document.querySelectorAll("[data-i18n]");
     elements.forEach((element) => {

@@ -276,7 +276,9 @@ button:disabled:hover {
 
 .task-list-container {
     max-height: 250px;
+    height: 0;
     overflow-y: auto;
+    transition: height 0.3s ease;
 }
 
 #task-list input[type="checkbox"] {

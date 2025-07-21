@@ -3,6 +3,7 @@ const localList = storedList ? JSON.parse(storedList) : [];
 const arrowButton = document.getElementById("arrow-btn");
 const clearSearchButton = document.getElementById("clear-search-btn");
 const searchBar = document.getElementById("search-bar");
+const listContainer = document.querySelector(".task-list-container");
 const taskList = document.getElementById("task-list");
 const newTaskInput = document.getElementById("new-task");
 const selectFilter = document.getElementById("filter-select");
@@ -90,6 +91,16 @@ function findTaskIndex(id) {
     return -1;
 }
 
+function updateListContainerHeight() {
+    const itemCount = taskList.children.length;
+
+    if (itemCount === 0) {
+        listContainer.style.height = "0";
+    } else {
+        listContainer.style.height = "250px";
+    }
+}
+
 /////////////////////////////////
 ///////// ADD NEW TASK //////////
 /////////////////////////////////
@@ -121,6 +132,8 @@ function addTask() {
 
     // clears search input if adding a task before clearing search input
     if (searchBar.value !== "") clearSearchBar();
+
+    updateListContainerHeight();
 }
 
 function createTask(taskValue, id, taskStatus) {
@@ -188,6 +201,7 @@ function clearAllTasks() {
     localStorage.removeItem("localList");
     localList.length = 0;
     hideMenu();
+    updateListContainerHeight();
 }
 
 function deleteTask() {
@@ -207,6 +221,7 @@ function deleteTask() {
     const totalTasks = document.getElementById("task-list").children.length;
     if (!totalTasks) {
         hideMenu();
+        updateListContainerHeight();
     }
 }
 

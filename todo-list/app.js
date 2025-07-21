@@ -50,7 +50,13 @@ function updateButtonState() {
 function toggleMenu() {
     const hiddenMenu = document.getElementById("hidden-menu");
     arrowButton.classList.toggle("active");
-    hiddenMenu.classList.toggle("active");
+    if (hiddenMenu.classList.contains("active")) {
+        hiddenMenu.classList.remove("active");
+        hiddenMenu.style.maxHeight = "0";
+    } else {
+        hiddenMenu.classList.add("active");
+        hiddenMenu.style.maxHeight = hiddenMenu.scrollHeight + "px";
+    }
 }
 
 // collapses the hidden menu when using delete or clear list and there're no items left in the list

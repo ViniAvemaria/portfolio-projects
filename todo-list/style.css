@@ -159,7 +159,7 @@ button:disabled:hover {
 }
 
 #arrow-btn svg {
-    transition: transform 0.4s ease, color 0.3s ease;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
 #arrow-btn svg:hover {
@@ -180,12 +180,11 @@ button:disabled:hover {
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease, opacity 0.3s ease, margin-bottom 0.4s ease;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
 }
 
 .hidden-menu.active {
     opacity: 1;
-    max-height: 1500px;
     margin-bottom: 1.5rem;
     pointer-events: initial;
 }

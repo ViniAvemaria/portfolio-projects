@@ -165,7 +165,7 @@ h3 {
 
 #contact .card {
     align-items: center;
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
     max-width: 250px;
 }
 
@@ -229,9 +229,19 @@ h3 {
     background-color: var(--hover);
 }
 
-#form-result {
+.form-status {
+    display: none;
     color: var(--accent);
     text-align: center;
+}
+
+.form-status.visible {
+    display: initial;
+}
+
+#status-error,
+#status-missing {
+    color: red;
 }
 
 @media (max-width: 1024px) {

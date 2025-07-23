@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     selectedLanguage(storedLanguage);
 
     if (storedTheme === "light") {
-        document.documentElement.classList.add("light");
+        document.body.classList.add("light");
         themeButton.classList.add("light");
         updateFavicon("light");
     }
@@ -55,16 +55,25 @@ const form = document.getElementById("contact-form");
 
 // submits for to formspree
 form.addEventListener("submit", function (event) {
+    function showStatus(statusToShow) {
+        const statuses = [statusSuccess, statusError, statusMissing];
+        statuses.forEach((status) => {
+            status.style.display = "none";
+        });
+        statusToShow.style.display = "initial";
+    }
     event.preventDefault();
 
-    const formResult = document.getElementById("form-result");
+    const statusSuccess = document.getElementById("status-success");
+    const statusError = document.getElementById("status-error");
+    const statusMissing = document.getElementById("status-missing");
+
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
     const message = document.getElementById("message").value.trim();
 
     if (!name || !email || !message) {
-        formResult.textContent = "Por favor, preencha todos os campos.";
-        formResult.style.color = "red";
+        showStatus(statusMissing);
         return;
     }
 
@@ -82,16 +91,14 @@ form.addEventListener("submit", function (event) {
     })
         .then((response) => {
             if (response.ok) {
-                formResult.textContent = "Mensagem enviada com sucesso!";
-                formResult.style.color = "#9b30ff";
+                showStatus(statusSuccess);
                 form.reset();
             } else {
-                formResult.textContent = "Erro ao enviar. Tente novamente.";
-                formResult.style.color = "red";
+                showStatus(statusError);
             }
         })
         .catch((error) => {
-            alert(error);
+            console.error(error);
         });
 });
 
@@ -126,6 +133,12 @@ document.addEventListener("click", (event) => {
         }, 300);
     }
 });
+
+/*
+////////////////////////////////////
+////////// CHANGE THEME ////////////
+////////////////////////////////////
+*/
 
 // theme button onClick function
 function changeTheme() {

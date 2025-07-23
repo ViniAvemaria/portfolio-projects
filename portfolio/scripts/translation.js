@@ -37,6 +37,9 @@ para colocar meus conhecimentos em prática e continuar evoluindo profissionalme
             email: "Email",
             message: "Mensagem",
             send: "Enviar",
+            success: "Mensagem enviada com sucesso!",
+            error: "Erro ao enviar mensagem. Tente novamente.",
+            missing: "Por favor, preencha todos os campos.",
         },
     },
 
@@ -77,6 +80,9 @@ I'm disciplined, committed, and looking for my first opportunity in development 
             email: "Email",
             message: "Message",
             send: "Send",
+            success: "Message sent successfully!",
+            error: "Failed to send message. Please try again.",
+            missing: "Please fill in all fields.",
         },
     },
 };

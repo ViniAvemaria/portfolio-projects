@@ -13,6 +13,7 @@ let ID = localList.length ? localList[localList.length - 1][0] + 1 : 0; // uniqu
 window.addEventListener("DOMContentLoaded", () => {
     if (!localList.length) return;
     reloadTaskList();
+    updateListContainerHeight();
     arrowButton.style.display = "flex";
 });
 
@@ -91,6 +92,7 @@ function findTaskIndex(id) {
     return -1;
 }
 
+// checks if task list needs to expand
 function updateListContainerHeight() {
     const itemCount = taskList.children.length;
 

@@ -130,9 +130,9 @@ document.addEventListener("click", (event) => {
 // theme button onClick function
 function changeTheme() {
     themeButton.classList.toggle("light");
-    document.documentElement.classList.toggle("light");
+    document.body.classList.toggle("light");
 
-    const isLight = document.documentElement.classList.contains("light");
+    const isLight = document.body.classList.contains("light");
     localStorage.setItem("theme", isLight ? "light" : "dark");
     updateFavicon(isLight ? "light" : "dark");
 }

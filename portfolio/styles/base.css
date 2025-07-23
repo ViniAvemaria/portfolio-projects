@@ -1,0 +1,63 @@
+:root {
+    --accent: #9b30ff;
+    --hover: #881ecc;
+    --primary-bg: #121212;
+    --primary-bg-transparent: #121212cc;
+    --secundary-bg: #1f1f1f;
+    --primary-text: #f1f1f1;
+    --secundary-text: #a1a1aa;
+    --input-bg: #2f2f2f;
+    --primary-border: #3a3a3a;
+    --secundary-border: #2a2a2a;
+    --project-shadow: #3a3a3a4d;
+}
+
+body.light {
+    --accent: #264de4;
+    --hover: #1e3bb8;
+    --primary-bg: #ffffff;
+    --primary-bg-transparent: #ffffffcc;
+    --secundary-bg: #f1f1f1;
+    --primary-text: #1f1f1f;
+    --secundary-text: #4a4a4a;
+    --input-bg: #e8e8e8;
+    --primary-border: #d4d4d4;
+    --secundary-border: #e0e0e0;
+    --project-shadow: #00000022;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--primary-text);
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+p {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 15px;
+    }
+}

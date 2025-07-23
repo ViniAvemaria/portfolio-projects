@@ -1,1 +1,0 @@
-Change sort to filter and show items same way as searching by hiding non matching items.

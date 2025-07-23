@@ -7,7 +7,7 @@ const listContainer = document.querySelector(".task-list-container");
 const taskList = document.getElementById("task-list");
 const newTaskInput = document.getElementById("new-task");
 const selectFilter = document.getElementById("filter-select");
-let ID = localList.length ? localList[localList.length - 1][0] + 1 : 0; // unique id for each list item
+let ID = localList.length ? localList[localList.length - 1].id + 1 : 0; // unique id for each list item
 
 // displays list items when page is loaded
 window.addEventListener("DOMContentLoaded", () => {
@@ -20,8 +20,8 @@ window.addEventListener("DOMContentLoaded", () => {
 function reloadTaskList() {
     taskList.innerHTML = "";
     localList.forEach((task) => {
-        [id, taskValue, taskStatus] = task;
-        const item = createTask(taskValue, id, taskStatus);
+        const { id, taskValue, status } = task;
+        const item = createTask(taskValue, id, status);
         taskList.appendChild(item);
     });
 }
@@ -127,7 +127,7 @@ function addTask() {
     const item = createTask(taskValue, id, 0);
     taskList.appendChild(item);
 
-    localList.push([id, taskValue, 0]);
+    localList.push({ id: id, taskValue: taskValue, status: 0 });
     localStorage.setItem("localList", JSON.stringify(localList));
 
     arrowButton.style.display = "flex";

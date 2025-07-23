@@ -20,8 +20,8 @@ window.addEventListener("DOMContentLoaded", () => {
 function reloadTaskList() {
     taskList.innerHTML = "";
     localList.forEach((task) => {
-        const { id, taskValue, status } = task;
-        const item = createTask(taskValue, id, status);
+        const { id, taskValue, taskStatus } = task;
+        const item = createTask(id, taskValue, taskStatus);
         taskList.appendChild(item);
     });
 }
@@ -81,9 +81,9 @@ function findTaskIndex(id) {
     while (l <= r) {
         let m = Math.floor((l + r) / 2);
 
-        if (localList[m][0] < id) {
+        if (localList[m].id < id) {
             l = m + 1;
-        } else if (localList[m][0] > id) {
+        } else if (localList[m].id > id) {
             r = m - 1;
         } else {
             return m;
@@ -117,17 +117,16 @@ newTaskInput.addEventListener("keydown", (event) => {
 // add task button onClick function
 function addTask() {
     const id = ID++;
+    const taskStatus = "pending";
     const newTask = document.getElementById("new-task");
     const taskValue = newTask.value.trim();
-    newTask.value = "";
 
     if (!taskValue) return;
 
-    // third value represents task completion status. default is 0 = pending
-    const item = createTask(taskValue, id, 0);
+    const item = createTask(id, taskValue, taskStatus);
     taskList.appendChild(item);
 
-    localList.push({ id: id, taskValue: taskValue, status: 0 });
+    localList.push({ id: id, taskValue: taskValue, taskStatus: taskStatus });
     localStorage.setItem("localList", JSON.stringify(localList));
 
     arrowButton.style.display = "flex";
@@ -135,10 +134,11 @@ function addTask() {
     // clears search input if adding a task before clearing search input
     if (searchBar.value !== "") clearSearchBar();
 
+    newTask.value = "";
     updateListContainerHeight();
 }
 
-function createTask(taskValue, id, taskStatus) {
+function createTask(id, taskValue, taskStatus) {
     const task = document.createElement("li");
 
     // hidden span that works as a unique id for each task
@@ -151,7 +151,7 @@ function createTask(taskValue, id, taskStatus) {
 
     const p = document.createElement("p");
     p.textContent = taskValue;
-    if (taskStatus) p.classList.add("done");
+    if (taskStatus === "done") p.classList.add("done");
 
     // hidden input box that is used when editing a task
     const input = document.createElement("input");
@@ -177,7 +177,7 @@ function createTask(taskValue, id, taskStatus) {
             // marks and unmarks a task as done and updates taskStatus on localList and and localStorage
             p.classList.toggle("done");
             const index = findTaskIndex(id);
-            localList[index][2] = p.classList.contains("done") ? 1 : 0;
+            localList[index].taskStatus = p.classList.contains("done") ? "done" : "pending";
             localStorage.setItem("localList", JSON.stringify(localList));
         }
     });
@@ -257,7 +257,7 @@ function editTask(id, p, input, button) {
     if (newTask) {
         p.textContent = newTask;
         const index = findTaskIndex(Number(id.textContent));
-        localList[index][1] = newTask;
+        localList[index].taskValue = newTask;
         localStorage.setItem("localList", JSON.stringify(localList));
     } else {
         input.value = p.textContent;

@@ -45,14 +45,13 @@ h2:not(#home h2) {
     gap: 2rem;
 }
 
-.social-container svg {
+.social-container i {
+    font-size: 2.2rem;
     color: var(--accent);
-    width: 2rem;
-    height: 2rem;
     transition: transform 0.2s ease, color 0.3s ease;
 }
 
-.social-container a:hover svg {
+.social-container a:hover i {
     color: var(--hover);
     transform: scale(1.1);
 }
@@ -98,7 +97,8 @@ h2:not(#home h2) {
     transition: background-color 0.3s ease;
 }
 
-.skill-container img {
+.skill-container i {
+    font-size: 4.5rem;
     transition: transform 0.2s ease;
 }
 
@@ -106,7 +106,7 @@ h2:not(#home h2) {
     background-color: var(--primary-border);
 }
 
-.skill-container:hover img {
+.skill-container:hover i {
     transform: scale(1.1);
 }
 

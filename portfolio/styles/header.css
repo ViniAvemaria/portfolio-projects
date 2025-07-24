@@ -129,11 +129,12 @@ h1 a:hover {
     padding: 0;
 }
 
-#settings-btn svg {
+#settings-btn i {
+    font-size: 1.1rem;
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
-#settings-btn:hover svg {
+#settings-btn:hover i {
     color: var(--hover);
     transform: rotate(-45deg);
 }
@@ -201,11 +202,12 @@ h1 a:hover {
     height: 1.5rem;
 }
 
-#theme-btn svg {
+#theme-btn i {
+    font-size: 1.1rem;
     transition: color 0.3s ease;
 }
 
-#theme-btn:hover svg {
+#theme-btn:hover i {
     color: var(--hover);
 }
 

@@ -181,12 +181,12 @@ button:disabled:hover {
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease, opacity 0.3s ease;
+    transition: max-height 0.3s ease, opacity 0.2s ease, margin-top 0.3s ease;
 }
 
 .hidden-menu.active {
     opacity: 1;
-    margin-bottom: 1.5rem;
+    margin-top: 15px;
     pointer-events: initial;
 }
 

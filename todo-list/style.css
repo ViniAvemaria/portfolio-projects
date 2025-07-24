@@ -154,19 +154,20 @@ button:disabled:hover {
     border: none;
     background: none;
     margin: 0 auto;
-    padding: 5px;
+    padding: 10px;
     color: var(--primary-text);
 }
 
-#arrow-btn svg {
+#arrow-btn i {
+    font-size: 1.2rem;
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
-#arrow-btn svg:hover {
+#arrow-btn i:hover {
     color: var(--hover);
 }
 
-#arrow-btn.active svg {
+#arrow-btn.active i {
     transform: rotate(180deg);
     transform-origin: center;
 }

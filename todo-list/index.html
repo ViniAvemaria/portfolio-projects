@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
     <link rel="icon" href="assets/favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
     <title>To-do List</title>
 </head>
 
@@ -26,10 +27,8 @@
             </div>
 
             <button onclick="toggleMenu()" id="arrow-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px"
-                    fill="currentColor">
-                    <path d="M480-360 280-560h400L480-360Z" />
-                </svg></button>
+                <i class="fa-solid fa-caret-down"></i>
+            </button>
 
             <div id="hidden-menu" class="hidden-menu">
                 <div class="btn-row">
@@ -48,11 +47,7 @@
                     <input type="text" name="search" id="search-bar" placeholder="Search" autocomplete="off">
                     <div class="clear-search-btn-container">
                         <button onclick="clearSearchBar()" id="clear-search-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="1.2rem" viewBox="0 -960 960 960"
-                                width="1.2rem" fill="currentColor">
-                                <path
-                                    d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
-                            </svg>
+                            <i class="fa-solid fa-xmark"></i>
                         </button>
                     </div>
                 </div>

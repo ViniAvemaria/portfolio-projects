@@ -30,6 +30,7 @@ para colocar meus conhecimentos em prática e continuar evoluindo profissionalme
         },
         project: {
             todo: "To-do List",
+            film: "Film Vault",
             name: "Nome do Projeto",
         },
         form: {
@@ -73,6 +74,7 @@ I'm disciplined, committed, and looking for my first opportunity in development 
         },
         project: {
             todo: "To-do List",
+            film: "Film Vault",
             name: "Project Name",
         },
         form: {

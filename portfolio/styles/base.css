@@ -15,8 +15,8 @@
 body.light {
     --accent: #264de4;
     --hover: #1e3bb8;
-    --primary-bg: #ffffff;
-    --primary-bg-transparent: #ffffffcc;
+    --primary-bg: #fafafa;
+    --primary-bg-transparent: #fafafa;
     --secundary-bg: #f1f1f1;
     --primary-text: #1f1f1f;
     --secundary-text: #4a4a4a;

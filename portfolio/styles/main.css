@@ -147,14 +147,25 @@ h3 {
     transform: translateY(-2px);
 }
 
-.project-container a:hover + h3 {
-    color: var(--hover);
-}
-
 .project-img {
     display: block;
     max-width: 100%;
     height: auto;
+}
+
+.project-name a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.project-name i {
+    transition: color ease 0.3s;
+}
+
+.project-name:hover h3,
+.project-name:hover i {
+    color: var(--hover);
 }
 
 /*

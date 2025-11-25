@@ -189,6 +189,12 @@ function selectedLanguage(lang) {
 
 // changes page's language
 function setLanguage(lang) {
+    const cvLink = document.getElementById("cv-link");
+
+    if (cvLink) {
+        cvLink.href = lang === "pt-br" ? "assets/CV-PT.pdf" : "assets/CV-EN.pdf";
+    }
+
     const elements = document.querySelectorAll("[data-i18n]");
     elements.forEach((element) => {
         const key = element.getAttribute("data-i18n");

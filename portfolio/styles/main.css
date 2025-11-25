@@ -42,6 +42,7 @@ h2:not(#home h2) {
 
 .social-container {
     display: flex;
+    align-items: center;
     gap: 2rem;
 }
 
@@ -61,6 +62,22 @@ h2:not(#home h2) {
     height: auto;
     border-radius: 50%;
     border: 5px solid var(--hover);
+}
+
+#cv-link {
+    display: inline-block;
+    background-color: var(--accent);
+    color: var(--primary-bg);
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+#cv-link:hover {
+    transform: scale(1.05);
+    background-color: var(--hover);
 }
 
 /*

@@ -9,7 +9,6 @@ const translations = {
         },
         greeting1: 'Olá, eu sou o <span id="name-span">Vinicius</span>',
         greeting2: "Desenvolvedor Full Stack",
-        curriculum: "Currículo",
         section: {
             about: {
                 title: "Apresentação",
@@ -55,7 +54,6 @@ para colocar meus conhecimentos em prática e continuar evoluindo profissionalme
         },
         greeting1: 'Hello, I am <span id="name-span">Vinicius</span>',
         greeting2: "Full Stack Developer",
-        curriculum: "Resume",
         section: {
             about: {
                 title: "Introduction",

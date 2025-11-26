@@ -52,7 +52,7 @@ h2:not(#home h2) {
     transition: transform 0.2s ease, color 0.3s ease;
 }
 
-.social-container a:hover i {
+.social-container a:hover:not(:nth-child(3)) i {
     color: var(--hover);
     transform: scale(1.1);
 }
@@ -65,10 +65,12 @@ h2:not(#home h2) {
 }
 
 #cv-link {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    gap: 5px;
     background-color: var(--accent);
     color: var(--primary-bg);
-    padding: 10px 16px;
+    padding: 5px 8px;
     border-radius: 8px;
     text-decoration: none;
     font-weight: 600;
@@ -78,6 +80,11 @@ h2:not(#home h2) {
 #cv-link:hover {
     transform: scale(1.05);
     background-color: var(--hover);
+}
+
+#cv-link i {
+    font-size: 1.5rem;
+    color: var(--primary-bg);
 }
 
 /*

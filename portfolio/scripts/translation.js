@@ -31,7 +31,7 @@ para colocar meus conhecimentos em prática e continuar evoluindo profissionalme
         project: {
             todo: "To-do List",
             film: "Film Vault",
-            name: "Nome do Projeto",
+            store: "Core Tech Store",
         },
         form: {
             name: "Nome",
@@ -75,7 +75,7 @@ I'm disciplined, committed, and looking for my first opportunity in development 
         project: {
             todo: "To-do List",
             film: "Film Vault",
-            name: "Project Name",
+            store: "Core Tech Store",
         },
         form: {
             name: "Name",

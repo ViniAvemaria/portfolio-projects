@@ -192,7 +192,7 @@ function setLanguage(lang) {
     const cvLink = document.getElementById("cv-link");
 
     if (cvLink) {
-        cvLink.href = lang === "pt-br" ? "assets/CV-PT.pdf" : "assets/CV-EN.pdf";
+        cvLink.href = lang === "pt-br" ? "assets/pt_cv.pdf" : "assets/en_cv.pdf";
     }
 
     const elements = document.querySelectorAll("[data-i18n]");

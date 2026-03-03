@@ -276,11 +276,6 @@ textarea::placeholder {
         margin: 0 auto;
     }
 
-    .links-container {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
     #contact {
         margin: 0 auto;
     }

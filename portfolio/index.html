@@ -1,238 +1,178 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link id="favicon" rel="icon" href="assets/favicon-dark.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
-    <link rel="stylesheet" href="styles/base.css">
-    <link rel="stylesheet" href="styles/header.css">
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/footer.css">
+    <link id="favicon" rel="icon" href="./assets/favicon.png" type="image/x-icon">
     <title>Portfólio</title>
 </head>
 
 <body>
     <header>
-        <div class="container">
-            <h1><a href="#home" data-i18n="title">Portfólio</a></h1>
-            <button onclick="toggleMenu()" id="nav-btn" class="nav-btn">
-                <div id="hamburger" class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </button>
-            <nav id="navbar" class="navbar">
-                <ul class="navbar-content">
-                    <li><a class="nav-links" href="#about-me" data-i18n="nav.about">Sobre mim</a></li>
-                    <li><a class="nav-links" href="#skills" data-i18n="nav.skills">Habilidades</a></li>
-                    <li><a class="nav-links" href="#projects" data-i18n="nav.projects">Projetos</a></li>
-                    <li><a class="nav-links" href="#contact" data-i18n="nav.contact">Contato</a></li>
-                    <li>
-                        <button onclick="toggleSettingsMenu()" id="settings-btn">
-                            <i class="fa-solid fa-gear"></i>
-                        </button>
-                        <ul id="settings-menu" class="settings-menu">
-                            <li>
-                                <button onclick="changeLanguage()" id="language-btn" class="settings-menu-btn">
-                                    <span id="portuguese-lang">PT</span> / <span id="english-lang">EN</span>
-                                </button>
-                            </li>
-                            <li>
-                                <button onclick="changeTheme()" id="theme-btn" class="settings-menu-btn">
-                                    <i id="moon-icon" class="fa-solid fa-moon"></i>
-                                    <i id="sun-icon" class="fa-solid fa-sun"></i>
-                                </button>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
+        <div class="intro">
+            <h1>Vinicius Avemaria</h1>
+            <h3>Desenvolvedor Full Stack</h3>
+            <p>Construindo aplicações web escaláveis com foco em qualidade e usabilidade.</p>
+        </div>
+
+        <nav>
+            <ul>
+                <li>
+                    <span class="link-dash"></span>
+                    <a href="#projects">
+                        Projetos
+                    </a>
+                </li>
+                <li>
+                    <span class="link-dash"></span>
+                    <a href="#contact">Contato</a>
+                </li>
+
+            </ul>
+        </nav>
+
+        <div class="socials">
+            <a href="https://github.com/ViniAvemaria" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-github"></i>
+            </a>
+
+            <a href="https://www.linkedin.com/in/viniavemaria/" target="_blank" rel="noopener noreferrer"
+                style="font-size: 1.65rem;">
+                <i class="fa-brands fa-linkedin"></i>
+            </a>
+
+            <a href="./assets/pt_cv.pdf" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-download"></i>
+            </a>
         </div>
     </header>
 
     <main>
-        <section id="home">
-            <div class="container">
-                <div class="greeting-container">
-                    <h2 data-i18n="greeting1">Olá, eu sou o <span id="name-span">Vinicius</span></h2>
-                    <h2 data-i18n="greeting2">Desenvolvedor Full Stack</h2>
-                    <div class="social-container">
-                        <a href="https://github.com/ViniAvemaria" target="_blank" rel="noopener noreferrer">
-                            <i class="fa-brands fa-github"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/viniavemaria/" target="_blank" rel="noopener noreferrer">
-                            <i class="fa-brands fa-linkedin"></i>
-                        </a>
-                        <a id="cv-link" href="assets/pt_cv.pdf" download class="download-btn">
-                            <i class="fa-solid fa-download"></i>
-                            CV
-                        </a>
-                    </div>
-                </div>
-                <img id="profile-picture" width="400" height="400" src="assets/pfp.jpg" alt="profile picture">
-            </div>
-        </section>
+        <div id="projects">
+            <h2>Projetos</h2>
 
-        <section id="about-me">
-            <div class="container">
-                <div class="card">
-                    <h2 data-i18n="section.about.title">Apresentação</h2>
-                    <p data-i18n="section.about.text">
-                        Sou Vinicius de Moura Avemaria, estudante de Engenharia de Software e atualmente em formação
-                        como Desenvolvedor Full Stack Júnior pelo curso da +PraTi. <br><br>
-                        Tenho me desenvolvido por meio de projetos pessoais e acadêmicos, sempre buscando aplicar na
-                        prática o que aprendo. Sou disciplinado, comprometido e estou em busca da minha primeira
-                        oportunidade na
-                        área de desenvolvimento, para colocar meus conhecimentos em prática e continuar evoluindo
-                        profissionalmente.
-                    </p>
+            <div class="project-card">
+                <h3>Core Tech Store</h3>
+                <img src="./assets/core_tech.png" alt="">
+                <div class="flag-container">
+                    <span class="flag">React</span>
+                    <span class="flag">Tailwind</span>
+                    <span class="flag">Spring Boot</span>
+                    <span class="flag">API</span>
+                    <span class="flag">PostgreSQL</span>
+                </div>
+                <p>E-commerce de eletrônicos com catálogo, página de detalhes, autenticação de usuário, carrinho,
+                    histórico de pedidos e avaliações, além de dashboard administrativo com CRUD de produtos, importação
+                    via CSV e gestão de pedidos. Deploy com Vercel, Render e Neon.
+                </p>
+                <div class="links-container">
+                    <a href="https://app.coretechstore.dedyn.io/" target="_blank" rel="noopener noreferrer">
+                        Acessar aplicação
+                        <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.875rem;"></i>
+                    </a>
+
+                    <a href="https://github.com/ViniAvemaria/coretech-project-frontend" target="_blank"
+                        rel="noopener noreferrer">Acessar repositório Frontend
+                        <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.875rem;"></i>
+                    </a>
+
+                    <a href="https://github.com/ViniAvemaria/coretech-project-backend" target="_blank"
+                        rel="noopener noreferrer">Acessar repositório Backend
+                        <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.875rem;"></i>
+                    </a>
                 </div>
             </div>
-        </section>
 
-        <section id="skills">
-            <div class="container">
-                <div class="card">
-                    <h2 data-i18n="section.skills.title">Habilidades</h2>
-                    <div class="skills-display">
-                        <div class="skill-container">
-                            <i class="devicon-html5-plain-wordmark colored"></i>
-                        </div>
-                        <div class="skill-container">
-                            <i class="devicon-css3-plain-wordmark colored"></i>
-                        </div>
-                        <div class="skill-container">
-                            <i class="devicon-javascript-plain colored"></i>
-                        </div>
-                        <div class="skill-container">
-                            <i class="devicon-react-original-wordmark colored"></i>
-                        </div>
-                        <div class="skill-container">
-                            <i class="devicon-python-plain-wordmark colored"></i>
-                        </div>
-                        <div class="skill-container">
-                            <i class="devicon-java-plain-wordmark colored"></i>
-                        </div>
-                        <div class="skill-container">
-                            <i class="devicon-spring-original-wordmark colored"></i>
-                        </div>
-                        <div class="skill-container">
-                            <i class="devicon-postgresql-plain-wordmark colored"></i>
-                        </div>
-                    </div>
+            <div class="project-card">
+                <h3>Film Vault</h3>
+                <img src="./assets/film_vault.png" alt="">
+                <div class="flag-container">
+                    <span class="flag">React</span>
+                    <span class="flag">CSS</span>
+                    <span class="flag">API</span>
+                </div>
+                <p>
+                    Aplicação web que permite pesquisar filmes, visualizar detalhes e adicionar títulos a uma lista de
+                    favoritos, consumindo dados da API pública OMDb.
+                </p>
+                <div class="links-container">
+                    <a href="https://viniavemaria.github.io/film-vault/" target="_blank" rel="noopener noreferrer">
+                        Acessar aplicação
+                        <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.875rem;"></i>
+                    </a>
+
+                    <a href="https://github.com/ViniAvemaria/film-vault" target="_blank"
+                        rel="noopener noreferrer">Acessar repositório
+                        <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.875rem;"></i>
+                    </a>
                 </div>
             </div>
-        </section>
 
-        <section id="projects">
-            <div class="container">
-                <div class="card">
-                    <h2 data-i18n="section.projects.title">Projetos</h2>
-                    <div id="projects-display">
-                        <div class="project-container">
-                            <a href="https://viniavemaria.github.io/portfolio-projects/todo-list/" target="_blank"
-                                rel="noopener noreferrer">
-                                <div class="project-card">
-                                    <img class="project-img" src="assets/todo-list-project.png"
-                                        alt="to-do list project">
-                                </div>
-                            </a>
-                            <div class="project-name">
-                                <a href="https://github.com/ViniAvemaria/portfolio-projects/tree/main/todo-list"
-                                    target="_blank" rel="noopener noreferrer">
-                                    <h3 data-i18n="project.todo"></h3>
-                                    <i class="fa-brands fa-github"></i>
-                                </a>
-                            </div>
-                        </div>
+            <div class="project-card">
+                <h3>To-do List</h3>
+                <img src="./assets/to_do_list.png" alt="">
+                <div class="flag-container">
+                    <span class="flag">HTML</span>
+                    <span class="flag">CSS</span>
+                    <span class="flag">JavaScript</span>
+                </div>
+                <p>
+                    Aplicação web de gerenciamento de tarefas que permite adicionar, editar, excluir, marcar como
+                    concluídas e filtrar tarefas.
+                </p>
+                <div class="links-container">
+                    <a href="https://viniavemaria.github.io/portfolio-projects/todo-list/" target="_blank"
+                        rel="noopener noreferrer">
+                        Acessar aplicação
+                        <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.875rem;"></i>
+                    </a>
 
-                        <div class="project-container">
-                            <a href="https://viniavemaria.github.io/film-vault/" target="_blank"
-                                rel="noopener noreferrer">
-                                <div class="project-card">
-                                    <img class="project-img" src="assets/film-vault-project.png"
-                                        alt="film-vault project">
-                                </div>
-                            </a>
-                            <div class="project-name">
-                                <a href="https://github.com/ViniAvemaria/film-vault" target="_blank"
-                                    rel="noopener noreferrer">
-                                    <h3 data-i18n="project.film"></h3>
-                                    <i class="fa-brands fa-github"></i>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="project-container">
-                            <a href="https://app.coretechstore.dedyn.io/" target="_blank" rel="noopener noreferrer">
-                                <div class="project-card">
-                                    <img class="project-img" src="assets/core-tech-project.png" alt="project">
-                                </div>
-                            </a>
-
-                            <div class="project-name">
-                                <a href="https://github.com/ViniAvemaria/coretech-project-frontend" target="_blank"
-                                    rel="noopener noreferrer">
-                                    <h3 data-i18n="project.store"></h3>
-                                    <i class="fa-brands fa-github"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    <a href="https://github.com/ViniAvemaria/portfolio-projects/tree/main/todo-list" target="_blank"
+                        rel="noopener noreferrer">Acessar repositório
+                        <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.875rem;"></i>
+                    </a>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section id="contact">
-            <div class="container">
-                <div class="card">
-                    <h2 data-i18n="section.contact.title">Deixe uma mensagem</h2>
-                    <form action="https://formspree.io/f/mblyvawd" method="POST" class="contact-form" id="contact-form">
-                        <div>
-                            <label for="name" data-i18n="form.name">Nome</label>
-                            <input type="text" name="name" id="name" autocomplete="name">
-                        </div>
+        <div id="contact">
+            <h2>Deixe uma mensagem</h2>
 
-                        <div>
-                            <label for="email" data-i18n="form.email">Email</label>
-                            <input type="email" name="email" id="email" autocomplete="email">
-                        </div>
-
-                        <div>
-                            <label for="message" data-i18n="form.message">Mensagem</label>
-                            <textarea name="message" id="message"></textarea>
-                        </div>
-
-                        <input type="text" name="_gotcha" style="display:none">
-
-                        <button type="submit" id="send-btn" data-i18n="form.send">Enviar</button>
-
-                        <p id="status-success" class="form-status" data-i18n="form.success">Mensagem enviada com
-                            sucesso!</p>
-                        <p id="status-error" class="form-status" data-i18n="form.error">Erro ao enviar mensagem. Tente
-                            novamente.
-                        </p>
-                        <p id="status-missing" class="form-status" data-i18n="form.missing">Por favor, preencha todos os
-                            campos.</p>
-                    </form>
+            <form action="https://formspree.io/f/mblyvawd" method="POST" class="contact-form" id="contact-form">
+                <div class="input-container">
+                    <label for="name">Nome</label>
+                    <input type="text" name="name" id="name" autocomplete="name">
                 </div>
-            </div>
-        </section>
+
+                <div class="input-container">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" autocomplete="email">
+                </div>
+
+                <div class="input-container">
+                    <label for="message">Mensagem</label>
+                    <textarea name="message" id="message"></textarea>
+                </div>
+
+                <input type="text" name="_gotcha" style="display:none">
+
+                <button type="submit" id="send-btn">Enviar</button>
+
+                <p id="status-success" class="form-status">Mensagem enviada com
+                    sucesso!</p>
+                <p id="status-error" class="form-status">Erro ao enviar mensagem. Tente
+                    novamente.
+                </p>
+                <p id="status-missing" class="form-status">Por favor, preencha todos os
+                    campos.</p>
+            </form>
+        </div>
     </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; <span id="year"></span> Vinicius de Moura Avemaria</p>
-        </div>
-    </footer>
-
-    <script src="scripts/app.js"></script>
-    <script src="scripts/translation.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

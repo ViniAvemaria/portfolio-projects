@@ -12,14 +12,14 @@ html {
 body {
     display: flex;
     gap: 2rem;
-    background-color: hsl(0, 0%, 3%);
+    background-color: black;
     color: white;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     max-width: 1200px;
-    min-width: 360px;
+    min-width: 380px;
     width: 100%;
     margin: 0 auto;
-    padding: 0 5vw;
+    padding: 0 8vw;
 }
 
 header {
@@ -29,7 +29,7 @@ header {
     height: 100vh;
     position: fixed;
     width: 350px;
-    padding: 5vw 0;
+    padding: 5rem 0;
 }
 
 main {
@@ -37,7 +37,7 @@ main {
     flex-direction: column;
     gap: 5rem;
     margin-left: 450px;
-    padding: 5vw 0;
+    padding: 5rem 0;
 }
 
 .intro {
@@ -119,7 +119,7 @@ nav ul li:hover .link-dash {
 #projects {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 2rem;
 }
 
 .project-card {
@@ -129,6 +129,10 @@ nav ul li:hover .link-dash {
     width: 100%;
 }
 
+.project-card:not(:last-child) {
+    margin-bottom: 4rem;
+}
+
 .project-card h3 {
     color: hsl(0, 0%, 85%);
 }
@@ -136,7 +140,12 @@ nav ul li:hover .link-dash {
 .project-card img {
     object-fit: contain;
     width: 100%;
-    border: 1px solid hsl(0, 0%, 50%, 50%);
+    border: 2px solid hsl(0, 0%, 25%);
+    border-radius: 8px;
+}
+
+.project-card p {
+    text-align: justify;
 }
 
 .flag-container {
@@ -202,6 +211,7 @@ textarea {
     border: 1px solid hsl(0, 0%, 50%, 50%);
     background-color: hsl(0, 0%, 85%);
     margin-top: 0.5rem;
+    border-radius: 8px;
 }
 
 .contact-form textarea {
@@ -221,6 +231,7 @@ textarea::placeholder {
     padding: 6px 12px;
     border: 1px solid hsl(0, 0%, 50%, 50%);
     transition: background-color 0.3s ease;
+    border-radius: 8px;
 }
 
 #send-btn:hover {
@@ -262,6 +273,7 @@ textarea::placeholder {
         margin: 0 auto;
         height: fit-content;
         gap: 2rem;
+        padding-bottom: 0;
     }
 
     .intro {

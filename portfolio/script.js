@@ -76,6 +76,8 @@ window.addEventListener("load", async () => {
         await addDoc(collection(db, "logs"), {
             date: serverTimestamp(),
             userAgent: navigator.userAgent,
+            language: navigator.language,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         });
     } catch (e) {
         console.error("Log failed", e);

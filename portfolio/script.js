@@ -47,3 +47,37 @@ form.addEventListener("submit", function (event) {
             console.error(error);
         });
 });
+
+////////////////////////////////////////////////////
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp,
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyBKD5GHVucSlPOsVDk37bNcfAfUG1S72t0",
+    authDomain: "portfolio-87e90.firebaseapp.com",
+    projectId: "portfolio-87e90",
+    storageBucket: "portfolio-87e90.firebasestorage.app",
+    messagingSenderId: "506093033488",
+    appId: "1:506093033488:web:d478481ec7393854b69295",
+    measurementId: "G-Y36SDK51N3",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.addEventListener("load", async () => {
+    try {
+        await addDoc(collection(db, "logs"), {
+            date: serverTimestamp(),
+            userAgent: navigator.userAgent,
+        });
+    } catch (e) {
+        console.error("Log failed", e);
+    }
+});

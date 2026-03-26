@@ -59,7 +59,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBKD5GHVucSlPOsVDk37bNcfAfUG1S72t0",
+    apiKey: "AIzaSyByHMpqviP-ZCPcMcjG-1sxmv2aqfTcEeU",
     authDomain: "portfolio-87e90.firebaseapp.com",
     projectId: "portfolio-87e90",
     storageBucket: "portfolio-87e90.firebasestorage.app",

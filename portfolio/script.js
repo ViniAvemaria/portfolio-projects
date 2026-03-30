@@ -78,6 +78,7 @@ window.addEventListener("load", async () => {
             userAgent: navigator.userAgent,
             language: navigator.language,
             timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            webdriver: navigator.webdriver,
         });
     } catch (e) {
         console.error("Log failed", e);
